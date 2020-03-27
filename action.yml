@@ -1,0 +1,10 @@
+name: "clang-format Check"
+description: "Use clang-format to see if your C code is formatted according to project guidelines."
+
+branding:
+  icon: "check-circle"
+  color: "blue"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
