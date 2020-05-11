@@ -23,6 +23,7 @@ format_diff(){
     diff_result="$?"
     if [[ "${diff_result}" -ne 0 ]]; then
 	echo "${filepath} is not formatted correctly." >&2
+	exit_code=1
 	return "${diff_result}"
     fi
     return 0
@@ -30,7 +31,16 @@ format_diff(){
 
 cd "$GITHUB_WORKSPACE" || exit 1
 
-# All files improperly formatted will be printed to the output.
-find . -name "*.[hc]" | while read -r src_file; do format_diff "${src_file}"; done || exit 1
+# initialize exit code
+exit_code=0
 
-exit 0
+# All files improperly formatted will be printed to the output.
+# find all C .c and .h files
+c_files=$(find . -name "*.[hc]")
+
+# check formatting in each C file
+for file in $c_files; do
+    format_diff "${file}"
+done
+
+exit "$exit_code"
