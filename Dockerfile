@@ -10,7 +10,7 @@ LABEL "homepage"="https://github.com/jidicula/github-action-clang-format"
 LABEL "maintainer"="jidicula <johanan.idicula@mail.mcgill.ca>"
 
 RUN apt-get update
-RUN apt-get install clang-format-10
+RUN apt-get install -y clang-format-10
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
