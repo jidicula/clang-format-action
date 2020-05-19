@@ -21,12 +21,12 @@ apt-get install -y clang-format-10 || exit 3
 # compared to the original file.
 format_diff(){
     local filepath="$1"
-    local_format="$(clang-format -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
-    format-status="$?"
-    if [[ "${format-status}" -ne 0 ]]; then
+    local_format="$(/usr/bin/clang-format-10 -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
+    local format_status="$?"
+    if [[ "${format_status}" -ne 0 ]]; then
 	echo "$local_format" >&2
 	exit_code=1
-	return "${format-status}"
+	return "${format_status}"
     fi
     return 0
 }
