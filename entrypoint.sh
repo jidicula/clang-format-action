@@ -10,8 +10,8 @@
 # root. Otherwise, the LLVM style guide is used as a default.
 
 # Install clang-format 10.0.0
-sudo apt-get update
-sudo apt-get install -y clang-format-10
+apt-get update || exit 3
+apt-get install -y clang-format-10 || exit 3
 
 ###############################################################################
 #                             format_diff function                            #
