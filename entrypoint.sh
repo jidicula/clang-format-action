@@ -9,6 +9,9 @@
 # Define your own formatting rules in a .clang-format file at your repository
 # root. Otherwise, the LLVM style guide is used as a default.
 
+# Install clang-format 10.0.0
+sudo apt-get update
+sudo apt-get install -y clang-format-10
 
 ###############################################################################
 #                             format_diff function                            #
@@ -28,7 +31,7 @@ format_diff(){
     return 0
 }
 
-cd "$GITHUB_WORKSPACE" || exit 1
+cd "$GITHUB_WORKSPACE" || exit 2
 
 # initialize exit code
 exit_code=0
