@@ -18,13 +18,12 @@
 # compared to the original file.
 format_diff(){
     local filepath="$1"
-    local_format="$(clang-format --style=file --fallback-style=LLVM "${filepath}")"
-    diff -q <(cat "${filepath}") <(echo "${local_format}") > /dev/null
-    diff_result="$?"
-    if [[ "${diff_result}" -ne 0 ]]; then
-	echo "${filepath} is not formatted correctly." >&2
+    local_format="$(clang-format -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
+    format-status="$?"
+    if [[ "${format-status}" -ne 0 ]]; then
+	echo "$local_format" >&2
 	exit_code=1
-	return "${diff_result}"
+	return "${format-status}"
     fi
     return 0
 }
