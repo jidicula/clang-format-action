@@ -1,7 +1,7 @@
 # clang-format-action
 GitHub Action for clang-format
 
-This action checks all C files (.c and .h) in the GitHub workspace are formatted correctly using the [precompiled Python wheel](https://pypi.org/project/clang-format/) for `clang-format`.
+This action checks all C files (.c and .h) in the GitHub workspace are formatted correctly using `clang-format`.
 
 The action returns:
 
