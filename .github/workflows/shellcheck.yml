@@ -2,11 +2,20 @@
 
 name: shellcheck
 
-# Controls when the action will run. Triggers the workflow on push and PR.
+# Controls when the action will run.
 on:
   push:
+    branches:
+      - main
     paths:
       - 'entrypoint.sh'
+      - '.github/workflows/shellcheck.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'entrypoint.sh'
+      - '.github/workflows/shellcheck.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

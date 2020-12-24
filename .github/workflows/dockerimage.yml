@@ -2,9 +2,19 @@ name: Docker Image CI
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'entrypoint.sh'
       - Dockerfile
+      - '.github/workflows/dockerimage.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'entrypoint.sh'
+      - Dockerfile
+      - '.github/workflows/dockerimage.yml'
 
 jobs:
 
