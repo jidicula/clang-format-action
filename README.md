@@ -1,3 +1,4 @@
+![shellcheck](https://github.com/jidicula/clang-format-action/workflows/shellcheck/badge.svg) ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg)
 # clang-format-action
 GitHub Action for clang-format
 
