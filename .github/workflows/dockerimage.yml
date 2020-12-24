@@ -2,7 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-  pull_request:
+    paths:
+      - 'entrypoint.sh'
+      - Dockerfile
 
 jobs:
 
