@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - 'entrypoint.sh'
       - Dockerfile
@@ -11,6 +12,7 @@ on:
   pull_request:
     branches:
       - main
+      - dev
     paths:
       - 'entrypoint.sh'
       - Dockerfile
