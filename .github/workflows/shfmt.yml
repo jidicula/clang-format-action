@@ -21,7 +21,6 @@ jobs:
     env:
       SHFMT_VERSION: 3.0.1
     runs-on: ubuntu-20.04
-    needs: lint
 
     steps:
     - uses: actions/checkout@v2
