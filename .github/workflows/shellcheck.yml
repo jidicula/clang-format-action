@@ -6,14 +6,14 @@ on:
       - main
       - dev
     paths:
-      - 'entrypoint.sh'
+      - '**.sh'
       - '.github/workflows/shellcheck.yml'
   pull_request:
     branches:
       - main
       - dev
     paths:
-      - 'entrypoint.sh'
+      - '**.sh'
       - '.github/workflows/shellcheck.yml'
 
 jobs:
