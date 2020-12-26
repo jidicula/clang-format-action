@@ -7,12 +7,14 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - 'entrypoint.sh'
       - '.github/workflows/shellcheck.yml'
   pull_request:
     branches:
       - main
+      - dev
     paths:
       - 'entrypoint.sh'
       - '.github/workflows/shellcheck.yml'
