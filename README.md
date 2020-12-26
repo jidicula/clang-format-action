@@ -33,7 +33,7 @@ To use this action, create a `.github/workflows/clang-format-check.yml` in your 
 
 ```
 name: clang-format Check
-on: [push]
+on: [push, PR]
 jobs:
   formatting-check:
     name: Formatting Check
