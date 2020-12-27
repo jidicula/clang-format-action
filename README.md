@@ -1,7 +1,7 @@
 | Branch | Docker Image CI | shell-lint |
 |--------|-----------------|------------|
-| `main`   | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=main) | ![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main) |
-| `dev`    | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=dev) | ![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=dev) |
+| `main`   | [![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3A%22Docker+Image+CI%22+branch%3Amain) | [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain) |
+| `dev`    | [![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=dev)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3A%22Docker+Image+CI%22+branch%3Adev) | [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=dev)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Adev) |
 
 # clang-format-action
 GitHub Action for clang-format
