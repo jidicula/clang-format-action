@@ -1,6 +1,6 @@
 | Tag    | Docker Image CI | shellcheck | shfmt |
 |--------|-----------------|------------|-------|
-| `v2.0.1` | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=v2.0.0) | ![shellcheck](https://github.com/jidicula/clang-format-action/workflows/shellcheck/badge.svg?branch=v2.0.1) | ![shfmt](https://github.com/jidicula/clang-format-action/workflows/shfmt/badge.svg?branch=v2.0.1) |
+| `v2.0.1` | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=v2.0.1) | ![shellcheck](https://github.com/jidicula/clang-format-action/workflows/shellcheck/badge.svg?branch=v2.0.1) | ![shfmt](https://github.com/jidicula/clang-format-action/workflows/shfmt/badge.svg?branch=v2.0.1) |
 | `main`   | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=main) | ![shellcheck](https://github.com/jidicula/clang-format-action/workflows/shellcheck/badge.svg?branch=main) | ![shfmt](https://github.com/jidicula/clang-format-action/workflows/shfmt/badge.svg?branch=main) |
 | `dev`    | ![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=dev) | ![shellcheck](https://github.com/jidicula/clang-format-action/workflows/shellcheck/badge.svg?branch=dev) | ![shfmt](https://github.com/jidicula/clang-format-action/workflows/shfmt/badge.svg?branch=dev) |
 
