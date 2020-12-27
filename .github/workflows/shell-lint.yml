@@ -1,4 +1,4 @@
-name: shfmt
+name: shell-lint
 
 on:
   push:
@@ -7,17 +7,28 @@ on:
       - dev
     paths:
       - '**.sh'
-      - '.github/workflows/shfmt.yml'
+      - '.github/workflows/shell-lint.yml'
   pull_request:
     branches:
       - main
       - dev
     paths:
       - '**.sh'
-      - '.github/workflows/shfmt.yml'
+      - '.github/workflows/shell-lint.yml'
 
 jobs:
-  format:
+  shellcheck:
+    name: Run Shellcheck on shellscripts
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ludeeus/action-shellcheck@1.0.0
+
+  shfmt:
+    name: Check shellscript formatting
+    needs: shellcheck
     env:
       SHFMT_VERSION: 3.0.1
     runs-on: ubuntu-20.04
