@@ -6,7 +6,7 @@
 # clang-format-action
 GitHub Action for clang-format
 
-This action checks all C/C++ files in the GitHub workspace are formatted correctly using `clang-format`.
+This action checks all C/C++ files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
 
 The following file extensions are checked:
 * Header files:
@@ -46,4 +46,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
       uses: jidicula/clang-format-action@v2.0.0
+      with:
+        check-path: 'src'
 ```
