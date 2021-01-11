@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
-      uses: jidicula/clang-format-action@v2.0.0
+      uses: jidicula/clang-format-action@v3.0.0
       with:
         check-path: 'src'
 ```
