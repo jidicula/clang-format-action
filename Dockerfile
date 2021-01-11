@@ -7,7 +7,7 @@ LABEL "com.github.actions.color"="blue"
 
 LABEL "repository"="https://github.com/jidicula/github-action-clang-format.git"
 LABEL "homepage"="https://github.com/jidicula/github-action-clang-format"
-LABEL "maintainer"="jidicula <johanan.idicula@mail.mcgill.ca>"
+LABEL "maintainer"="jidicula <johanan@forcepush.tech>"
 
 # Install clang-format
 RUN apt-get update && apt-get install -y --no-install-recommends clang-format-10
