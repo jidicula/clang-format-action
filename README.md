@@ -54,3 +54,7 @@ jobs:
       with:
         check-path: 'src'
 ```
+
+# Who uses this?
+
+Click [here](https://github.com/search?q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&type=Code) to see the public repos using this Action.
