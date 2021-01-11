@@ -4,8 +4,10 @@
 #                                entrypoint.sh                                #
 ###############################################################################
 # Checks all C/C++ files (.h, .H, .hpp, .hh, .h++, .hxx and .c, .C, .cpp, .cc,
-# .c++, .cxx) in the GitHub workspace for conforming to clang-format. If any C
-# files are incorrectly formatted, the script lists them and exits with 1.
+# .c++, .cxx) in the provided GitHub repository path for conforming to
+# clang-format. If no path is provided or provided path is not a directory, all
+# C/C++ files are checked. If any C files are incorrectly formatted, the script
+# lists them and exits with 1.
 #
 # Define your own formatting rules in a .clang-format file at your repository
 # root. Otherwise, the LLVM style guide is used as a default.
@@ -26,7 +28,14 @@ format_diff() {
 	return 0
 }
 
+CHECK_PATH="$1"
+
 cd "$GITHUB_WORKSPACE" || exit 2
+
+if [[ ! -d "$CHECK_PATH" ]]; then
+	echo "Not a directory in the workspace, fallback to all files."
+	CHECK_PATH="."
+fi
 
 # initialize exit code
 exit_code=0
@@ -35,7 +44,7 @@ exit_code=0
 # find all C/C++ files:
 #   h, H, hpp, hh, h++, hxx
 #   c, C, cpp, cc, c++, cxx
-c_files=$(find . | grep -E '\.((c|C)c?(pp|xx|\+\+)*$|(h|H)h?(pp|xx|\+\+)*$)')
+c_files=$(find "$CHECK_PATH" | grep -E '\.((c|C)c?(pp|xx|\+\+)*$|(h|H)h?(pp|xx|\+\+)*$)')
 
 # check formatting in each C file
 for file in $c_files; do
