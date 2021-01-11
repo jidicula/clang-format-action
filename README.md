@@ -6,6 +6,11 @@
 # clang-format-action
 GitHub Action for clang-format
 
+## Inputs
+* `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
+  * Default: `.`
+  * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
+
 This action checks all C/C++ files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
 
 The following file extensions are checked:
@@ -24,10 +29,10 @@ The following file extensions are checked:
   * `.c++`
   * `.cxx`
 
-The action returns:
+## Returns:
 
-* SUCCESS: zero exit-code if project C/C++ files are formatted correctly
-* FAILURE: nonzero exit-code if project C/C++ files are not formatted correctly
+* SUCCESS: zero exit-code if C/C++ files in `check-path` are formatted correctly
+* FAILURE: nonzero exit-code if C/C++ files in `check-path` are not formatted correctly
 
 Define your own formatting rules in a `.clang-format` file at your repository root. Otherwise, the LLVM style guide is used as a default. My preference is the [Linux Project format](https://github.com/torvalds/linux/blob/master/.clang-format).
 
