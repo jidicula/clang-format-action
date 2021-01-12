@@ -43,4 +43,3 @@ jobs:
 
     - name: Check .sh files
       run: shfmt -d .
-
