@@ -7,6 +7,9 @@
 GitHub Action for clang-format
 
 ## Inputs
+* `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
+  * Default: `10`
+  * Available versions: every version of `clang-format` available on [Ubuntu Groovy](https://packages.ubuntu.com/search?suite=groovy&searchon=names&keywords=clang-format).
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
@@ -50,8 +53,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
-      uses: jidicula/clang-format-action@v3.0.0
+      uses: jidicula/clang-format-action@v3.1.0
       with:
+        clang-format-version: '11'
         check-path: 'src'
 ```
 
