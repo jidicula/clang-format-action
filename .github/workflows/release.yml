@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Release Notes
         run:
-          git log $(git describe --tags --abbrev=0)..HEAD~ --pretty='format:* %h %s%n  * %an <%ae>' >> ".github/RELEASE-TEMPLATE.md"
+          git log $(git describe HEAD~ --tags --abbrev=0)..HEAD~ --pretty='format:* %h %s%n  * %an <%ae>' >> ".github/RELEASE-TEMPLATE.md"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
