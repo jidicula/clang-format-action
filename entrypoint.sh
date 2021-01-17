@@ -18,7 +18,7 @@
 # compared to the original file.
 format_diff() {
 	local filepath="$1"
-	local_format="$(/usr/bin/clang-format-10 -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
+	local_format="$(/usr/bin/clang-format-"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style=LLVM "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
 		echo "$local_format" >&2
@@ -29,6 +29,10 @@ format_diff() {
 }
 
 CHECK_PATH="$1"
+
+# Install clang-format
+echo "Installing clang-format-$CLANG_FORMAT_VERSION"
+apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
 
 cd "$GITHUB_WORKSPACE" || exit 2
 
