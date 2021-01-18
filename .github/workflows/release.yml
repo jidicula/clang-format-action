@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Release Notes
         run:
           git log $(git describe HEAD~ --tags --abbrev=0)..HEAD~ --pretty='format:* %h %s%n  * %an <%ae>' >> ".github/RELEASE-TEMPLATE.md"
