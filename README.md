@@ -48,7 +48,7 @@ The following file extensions are checked:
 
 To use this action, create a `.github/workflows/clang-format-check.yml` in your repository containing:
 
-```
+```yaml
 name: clang-format Check
 on: [push, PR]
 jobs:
@@ -67,7 +67,7 @@ jobs:
 ## Multiple Paths
 To use this action on multiple paths in parallel, create a `.github/workflows/clang-format-check.yml` in your repository containing:
 
-```
+```yaml
 name: clang-format Check
 on: [push, PR]
 jobs:
