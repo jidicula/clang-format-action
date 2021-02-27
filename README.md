@@ -62,6 +62,7 @@ jobs:
       with:
         clang-format-version: '11'
         check-path: 'src'
+        fallback-style: 'Mozilla' # optional
 ```
 
 ## Multiple Paths
@@ -86,6 +87,7 @@ jobs:
       with:
         clang-format-version: '11'
         check-path: ${{ matrix.path }}
+        fallback-style: 'Mozilla' # optional
 ```
 
 # Who uses this?
