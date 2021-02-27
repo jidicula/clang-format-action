@@ -4,7 +4,9 @@
 | `dev`    | [![Docker Image CI](https://github.com/jidicula/clang-format-action/workflows/Docker%20Image%20CI/badge.svg?branch=dev)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3A%22Docker+Image+CI%22+branch%3Adev) | [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=dev)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Adev) |
 
 # clang-format-action
-GitHub Action for clang-format
+GitHub Action for clang-format checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
+
+You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see `fallback-style`). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
@@ -40,9 +42,9 @@ The following file extensions are checked:
 * SUCCESS: zero exit-code if C/C++ files in `check-path` are formatted correctly
 * FAILURE: nonzero exit-code if C/C++ files in `check-path` are not formatted correctly
 
-Define your own formatting rules in a `.clang-format` file at your repository root. Otherwise, the LLVM style guide is used as a default fallback. My preference is the [Linux Project format](https://github.com/torvalds/linux/blob/master/.clang-format).
-
 # Usage
+
+## Single Path
 
 To use this action, create a `.github/workflows/clang-format-check.yml` in your repository containing:
 
@@ -62,6 +64,30 @@ jobs:
         check-path: 'src'
 ```
 
+## Multiple Paths
+To use this action on multiple paths in parallel, create a `.github/workflows/clang-format-check.yml` in your repository containing:
+
+```
+name: clang-format Check
+on: [push, PR]
+jobs:
+  formatting-check:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - 'src'
+          - 'examples'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run clang-format style check for C/C++ programs.
+      uses: jidicula/clang-format-action@v3.2.0
+      with:
+        clang-format-version: '11'
+        check-path: ${{ matrix.path }}
+```
+
 # Who uses this?
 
-Click [here](https://github.com/search?q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&type=Code) to see the public repos using this Action.
+[These public repos](https://github.com/search?q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&type=Code) use this Action.
