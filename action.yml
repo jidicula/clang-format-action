@@ -14,6 +14,10 @@ inputs:
     description: 'The path to the directory you want to check for correct C/C++formatting. Default is the full repository.'
     required: false
     default: '.'
+  fallback-style:
+    description: 'The fallback style for clang-format if no .clang-format file exists in your repository.'
+    required: false
+    default: 'llvm'
 
 runs:
   using: "docker"
@@ -22,3 +26,4 @@ runs:
     CLANG_FORMAT_VERSION: ${{ inputs.clang-format-version }}
   args:
     - ${{ inputs.check-path }}
+    - ${{ inputs.fallback-style }}
