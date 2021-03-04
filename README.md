@@ -89,4 +89,4 @@ jobs:
 
 # Who uses this?
 
-[These public repos](https://github.com/search?q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&type=Code) use this Action.
+[These public repos](https://github.com/search?o=desc&q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&s=indexed&type=Code) use this Action.
