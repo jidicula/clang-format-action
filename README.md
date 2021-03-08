@@ -90,3 +90,7 @@ jobs:
 # Who uses this?
 
 [These public repos](https://github.com/search?o=desc&q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&s=indexed&type=Code) use this Action.
+
+# Do you find this useful?
+
+You can sponsor me [here](https://github.com/sponsors/jidicula)!
