@@ -5,6 +5,10 @@ GitHub Action for clang-format checks. Note that this Action does **NOT** format
 
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
+## Do you find this useful?
+
+You can sponsor me [here](https://github.com/sponsors/jidicula)!
+
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
   * Default: `10`
@@ -90,7 +94,3 @@ jobs:
 # Who uses this?
 
 [These public repos](https://github.com/search?o=desc&q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&s=indexed&type=Code) use this Action.
-
-# Do you find this useful?
-
-You can sponsor me [here](https://github.com/sponsors/jidicula)!
