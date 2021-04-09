@@ -19,6 +19,9 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 * `fallback-style` [optional]: The fallback style for `clang-format` if no `.clang-format` file exists in your repository.
   * Default: `llvm`
   * Available values: `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit` and others listed in the `clang-format` [docs for BasedOnStyle](https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options).
+* `exclude-regex` [optional]: A regex to exclude files or directories that should not be checked.
+  * Default: `^$`
+  * Pattern matching is done with a real regex, not a glob expression. You can exclude multiple patterns like this: `(hello|world)`.
 
 This action checks all C/C++ files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
 
@@ -88,6 +91,34 @@ jobs:
       with:
         clang-format-version: '11'
         check-path: ${{ matrix.path }}
+        fallback-style: 'Mozilla' # optional
+```
+
+## Multiple Paths with Exclusion Regexes
+To use this action on multiple paths in parallel with exclusions, create a `.github/workflows/clang-format-check.yml` in your repository containing:
+
+```yaml
+name: clang-format Check
+on: [push, PR]
+jobs:
+  formatting-check:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - check: 'src'
+            exclude: '(hello|world)' # Exclude file paths containing "hello" or "world"
+          - check: 'examples'
+            exclude: ''              # Nothing to exclude
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run clang-format style check for C/C++ programs.
+      uses: jidicula/clang-format-action@v3.2.0
+      with:
+        clang-format-version: '11'
+        check-path: ${{ matrix.path['check'] }}
+        exclude-regex: ${{ matrix.path['exclude'] }}
         fallback-style: 'Mozilla' # optional
 ```
 

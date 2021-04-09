@@ -31,12 +31,18 @@ format_diff() {
 
 CHECK_PATH="$1"
 FALLBACK_STYLE="$2"
+EXCLUDE_REGEX="$3"
 
-# Install clang-format
-echo "Installing clang-format-$CLANG_FORMAT_VERSION"
-apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
+# Set the regex to an empty string regex if nothing was provided
+if [ -z "$EXCLUDE_REGEX" ]; then
+	EXCLUDE_REGEX="^$"
+fi
 
-cd "$GITHUB_WORKSPACE" || exit 2
+# # Install clang-format
+# echo "Installing clang-format-$CLANG_FORMAT_VERSION"
+# apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
+
+# cd "$GITHUB_WORKSPACE" || exit 2
 
 if [[ ! -d "$CHECK_PATH" ]]; then
 	echo "Not a directory in the workspace, fallback to all files."
@@ -54,7 +60,10 @@ c_files=$(find "$CHECK_PATH" | grep -E '\.((c|C)c?(pp|xx|\+\+)*$|(h|H)h?(pp|xx|\
 
 # check formatting in each C file
 for file in $c_files; do
-	format_diff "${file}"
+	# Only check formatting if the path doesn't match the regex
+	if ! [[ "${file}" =~ $EXCLUDE_REGEX ]]; then
+		format_diff "${file}"
+	fi
 done
 
 exit "$exit_code"
