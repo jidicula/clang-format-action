@@ -38,11 +38,11 @@ if [ -z "$EXCLUDE_REGEX" ]; then
 	EXCLUDE_REGEX="^$"
 fi
 
-# # Install clang-format
-# echo "Installing clang-format-$CLANG_FORMAT_VERSION"
-# apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
+# Install clang-format
+echo "Installing clang-format-$CLANG_FORMAT_VERSION"
+apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
 
-# cd "$GITHUB_WORKSPACE" || exit 2
+cd "$GITHUB_WORKSPACE" || exit 2
 
 if [[ ! -d "$CHECK_PATH" ]]; then
 	echo "Not a directory in the workspace, fallback to all files."
