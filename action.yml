@@ -11,9 +11,13 @@ inputs:
     required: false
     default: '10'
   check-path:
-    description: 'The path to the directory you want to check for correct C/C++formatting. Default is the full repository.'
+    description: 'The path to the directory you want to check for correct C/C++ formatting. Default is the full repository.'
     required: false
     default: '.'
+  exclude-regex:
+    description: 'A regex to exclude files or directories that should not be checked. Default is empty.'
+    required: false
+    default: ''
   fallback-style:
     description: 'The fallback style for clang-format if no .clang-format file exists in your repository.'
     required: false
@@ -27,3 +31,4 @@ runs:
   args:
     - ${{ inputs.check-path }}
     - ${{ inputs.fallback-style }}
+    - ${{ inputs.exclude-regex }}
