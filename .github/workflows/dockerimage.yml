@@ -4,19 +4,9 @@ on:
   push:
     branches:
       - main
-      - dev
-    paths:
-      - 'entrypoint.sh'
-      - Dockerfile
-      - '.github/workflows/dockerimage.yml'
   pull_request:
     branches:
       - main
-      - dev
-    paths:
-      - 'entrypoint.sh'
-      - Dockerfile
-      - '.github/workflows/dockerimage.yml'
 
 jobs:
 
