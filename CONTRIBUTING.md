@@ -1,6 +1,6 @@
 # Testing your contribution:
 
-You can clone [jidicula/clang-format-action](https://github.com/jidicula/test-clang-format-action) and modify the GitHub Actions workflow to point to your clone and your branch:
+You can clone [jidicula/test-clang-format-action](https://github.com/jidicula/test-clang-format-action) and modify the GitHub Actions workflow to point to your clone and your branch:
 e.g.
 
 ```yaml
