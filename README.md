@@ -62,7 +62,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
-      uses: jidicula/clang-format-action@v3.2.0
+      uses: jidicula/clang-format-action@v3.3.0
       with:
         clang-format-version: '11'
         check-path: 'src'
@@ -87,7 +87,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
-      uses: jidicula/clang-format-action@v3.2.0
+      uses: jidicula/clang-format-action@v3.3.0
       with:
         clang-format-version: '11'
         check-path: ${{ matrix.path }}
@@ -114,7 +114,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++ programs.
-      uses: jidicula/clang-format-action@v3.2.0
+      uses: jidicula/clang-format-action@v3.3.0
       with:
         clang-format-version: '11'
         check-path: ${{ matrix.path['check'] }}
