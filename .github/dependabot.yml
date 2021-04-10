@@ -10,3 +10,7 @@ updates:
   open-pull-requests-limit: 99
   commit-message:
     prefix: "build: "
+  reviewers:
+    - "jidicula"
+  assignees:
+    - "jidicula"
