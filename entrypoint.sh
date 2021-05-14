@@ -22,6 +22,7 @@ format_diff() {
 	local_format="$(/usr/bin/clang-format-"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
+		echo "Failed on file: $filepath"
 		echo "$local_format" >&2
 		exit_code=1
 		return "${format_status}"
