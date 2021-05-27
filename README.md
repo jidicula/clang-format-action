@@ -54,7 +54,7 @@ To use this action, create a `.github/workflows/clang-format-check.yml` in your 
 
 ```yaml
 name: clang-format Check
-on: [push, PR]
+on: [push, pull_request]
 jobs:
   formatting-check:
     name: Formatting Check
@@ -74,7 +74,7 @@ To use this action on multiple paths in parallel, create a `.github/workflows/cl
 
 ```yaml
 name: clang-format Check
-on: [push, PR]
+on: [push, pull_request]
 jobs:
   formatting-check:
     name: Formatting Check
@@ -99,7 +99,7 @@ To use this action on multiple paths in parallel with exclusions, create a `.git
 
 ```yaml
 name: clang-format Check
-on: [push, PR]
+on: [push, pull_request]
 jobs:
   formatting-check:
     name: Formatting Check
