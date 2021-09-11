@@ -5,14 +5,20 @@ GitHub Action for clang-format checks. Note that this Action does **NOT** format
 
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
+## Versions supported
+* `clang-format-9`
+* `clang-format-10` (n.b. use v3.4.0 of this action to access it)
+* `clang-format-11`
+* `clang-format-12`
+
 ## Do you find this useful?
 
 You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
-  * Default: `10`
-  * Available versions: every version of `clang-format` available on [Ubuntu Groovy](https://packages.ubuntu.com/search?suite=groovy&searchon=names&keywords=clang-format).
+  * Default: `11`
+  * Available versions: every version of `clang-format` available on [Ubuntu Hirsute](https://packages.ubuntu.com/search?keywords=clang-format&searchon=names&suite=hirsute&section=all).
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
