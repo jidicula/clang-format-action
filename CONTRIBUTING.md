@@ -25,7 +25,7 @@ jobs:
       uses: yourusername/clang-format-action@your-branch-name # modify this to point to your fork and feature branch!
       with:
         check-path: ${{ matrix.path['check'] }}
-        clang-format-version: 11
+        clang-format-version: 13
         exclude-regex: ${{ matrix.path['exclude'] }}
 ```
 
