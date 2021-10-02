@@ -10,6 +10,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * `clang-format-10` (n.b. use v3.4.0 of this action to access it)
 * `clang-format-11`
 * `clang-format-12`
+* `clang-format-13`
 
 ## Do you find this useful?
 
@@ -17,8 +18,8 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
-  * Default: `11`
-  * Available versions: every version of `clang-format` available on [Ubuntu Hirsute](https://packages.ubuntu.com/search?keywords=clang-format&searchon=names&suite=hirsute&section=all).
+  * Default: `13`
+  * Available versions: every version of `clang-format` available on [Ubuntu Impish](https://packages.ubuntu.com/search?keywords=clang-format&searchon=names&suite=impish&section=all).
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
@@ -70,7 +71,7 @@ jobs:
     - name: Run clang-format style check for C/C++ programs.
       uses: jidicula/clang-format-action@v4.0.0
       with:
-        clang-format-version: '11'
+        clang-format-version: '13'
         check-path: 'src'
         fallback-style: 'Mozilla' # optional
 ```
@@ -95,7 +96,7 @@ jobs:
     - name: Run clang-format style check for C/C++ programs.
       uses: jidicula/clang-format-action@v4.0.0
       with:
-        clang-format-version: '11'
+        clang-format-version: '13'
         check-path: ${{ matrix.path }}
         fallback-style: 'Mozilla' # optional
 ```
@@ -122,7 +123,7 @@ jobs:
     - name: Run clang-format style check for C/C++ programs.
       uses: jidicula/clang-format-action@v4.0.0
       with:
-        clang-format-version: '11'
+        clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}
         exclude-regex: ${{ matrix.path['exclude'] }}
         fallback-style: 'Mozilla' # optional

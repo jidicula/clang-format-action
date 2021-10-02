@@ -9,7 +9,7 @@ inputs:
   clang-format-version:
     description: 'The version of clang-format that you want to use.'
     required: false
-    default: '11'
+    default: '13'
   check-path:
     description: 'The path to the directory you want to check for correct C/C++ formatting. Default is the full repository.'
     required: false
