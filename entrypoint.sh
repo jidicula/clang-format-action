@@ -41,7 +41,11 @@ fi
 
 # Install clang-format
 echo "Installing clang-format-$CLANG_FORMAT_VERSION"
-apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
+
+apt-get update
+# To address a bug in Impish-
+apt-get purge libappstream3
+apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
 
 cd "$GITHUB_WORKSPACE" || exit 2
 
