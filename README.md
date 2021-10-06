@@ -11,6 +11,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * `clang-format-11`
 * `clang-format-12`
 * `clang-format-13`
+* `clang-format-14`
 
 ## Do you find this useful?
 
@@ -18,7 +19,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
-  * Default: `13`
+  * Default: `11`
   * Available versions: every version of `clang-format` available on [Ubuntu Impish](https://packages.ubuntu.com/search?keywords=clang-format&searchon=names&suite=impish&section=all).
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
   * Default: `.`
