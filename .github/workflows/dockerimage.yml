@@ -19,4 +19,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag clang-format-action-test --no-cache
     - name: test the docker image
-      run: docker run -e CLANG_FORMAT_VERSION=11 -e GITHUB_WORKSPACE=/test -it -v $(pwd)/test:/test --privileged debian:unstable-slim
+      run: docker run -e CLANG_FORMAT_VERSION=11 -e GITHUB_WORKSPACE=/test -it -v $(pwd)/test:/test --privileged clang-format-action-test
