@@ -19,7 +19,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
-  * Default: `11`
+  * Default: `13`
   * Available versions: every version of `clang-format` available on [Debian Sid](https://packages.debian.org/search?suite=sid&searchon=names&keywords=clang-format).
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
   * Default: `.`
