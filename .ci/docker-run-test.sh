@@ -9,17 +9,17 @@ if [ "$docker_status" != "0" ]; then
 fi
 
 # should succeed
-docker run -e CLANG_FORMAT_VERSION=13 -e GITHUB_WORKSPACE=/test -v $(pwd)/test:/test --privileged clang-format-action-test known_pass llvm capi
+docker run -e CLANG_FORMAT_VERSION=13 -e GITHUB_WORKSPACE=/test -v "$(pwd)"/test:/test --privileged clang-format-action-test known_pass llvm capi
 docker_status="$?"
-if [ "$docker_status" != "0" ]; then
+if [[ "$docker_status" != "0" ]]; then
     echo "files that should succeed have failed!"
     exit 1
 fi
 
 # should fail
-docker run -e CLANG_FORMAT_VERSION=13 -e GITHUB_WORKSPACE=/test -v $(pwd)/test:/test --privileged clang-format-action-test known_fail llvm capi
+docker run -e CLANG_FORMAT_VERSION=13 -e GITHUB_WORKSPACE=/test -v "$(pwd)"/test:/test --privileged clang-format-action-test known_fail llvm capi
 docker_status="$?"
-if [ "$docker_status" == "0" ]; then
+if [[ "$docker_status" == "0" ]]; then
     echo "files that should fail have succeeded!"
     exit 2
 fi
