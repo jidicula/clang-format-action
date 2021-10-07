@@ -3,7 +3,7 @@
 # build the docker container
 docker build . --file Dockerfile --tag clang-format-action-test --no-cache
 docker_status="$?"
-if [ "$docker_status" != "0" ]; then
+if [[ "$docker_status" != "0" ]]; then
     echo "failed to build the dockerfile"
     exit 1
 fi
