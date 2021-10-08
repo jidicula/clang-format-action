@@ -1,4 +1,4 @@
-[![Build and Test](https://github.com/jidicula/clang-format-action/workflows/Build%20and%20Test/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3A%22Docker+Image+CI%22+branch%3Amain) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
+[![Build and Test](https://github.com/jidicula/clang-format-action/workflows/Build%20and%20Test/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/workflows/Build%20and%20Test/badge.svg?branch=main) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
 
 # clang-format-action
 GitHub Action for clang-format checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
