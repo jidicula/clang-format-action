@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.4
     - name: Build and test the Docker image
-      run: .ci/docker-run-test.sh
+      run: test/docker-run-test.sh
