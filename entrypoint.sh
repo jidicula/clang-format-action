@@ -15,10 +15,10 @@
 
 # format_diff function
 # Accepts a filepath argument. The filepath passed to this function must point
-# to a C/C++ file. The file is formatted with clang-format and that output is
-# compared to the original file.
+# to a C/C++ file.
 format_diff() {
 	local filepath="$1"
+	# Invoke clang-format with dry run and formatting error output
 	local_format="$(/usr/bin/clang-format-"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
