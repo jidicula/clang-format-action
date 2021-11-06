@@ -31,7 +31,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
   * Default: `^$`
   * Pattern matching is done with a real regex, not a glob expression. You can exclude multiple patterns like this: `(hello|world)`.
 
-This action checks all C/C++ files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
+This action checks all C/C++ (including Arduino `.ino` and `.pde`) files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
 
 The following file extensions are checked:
 * Header files:
@@ -48,6 +48,8 @@ The following file extensions are checked:
   * `.cc`
   * `.c++`
   * `.cxx`
+  * `.ino`
+  * `.pde`
 
 ## Returns:
 
