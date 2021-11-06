@@ -59,7 +59,7 @@ exit_code=0
 # find all C/C++ files:
 #   h, H, hpp, hh, h++, hxx
 #   c, C, cpp, cc, c++, cxx
-c_files=$(find "$CHECK_PATH" | grep -E "\\.((c|C)c?(pp|xx|\\+\\+)$|(h|H)h?(pp|xx|\\+\\+)$(ino | pde))")
+c_files=$(find "$CHECK_PATH" -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde))$')
 
 # check formatting in each C file
 for file in $c_files; do
