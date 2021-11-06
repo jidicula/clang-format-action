@@ -42,8 +42,7 @@ fi
 # Install clang-format
 echo "Installing clang-format-$CLANG_FORMAT_VERSION"
 
-# Need to purge libappstream3 to address a bug in Ubuntu Impish
-apt-get update && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION"
+apt-get update >/dev/null && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION" >/dev/null
 
 cd "$GITHUB_WORKSPACE" || exit 2
 
