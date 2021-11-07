@@ -1,4 +1,4 @@
-FROM debian:unstable-20211011-slim
+FROM ubuntu:groovy
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

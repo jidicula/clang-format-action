@@ -2,7 +2,7 @@
 
 FALLBACK_STYLE="llvm"
 EXCLUDE_REGEX="capital"
-CLANG_FORMAT_VERSION="13"
+CLANG_FORMAT_VERSION="10"
 GITHUB_WORKSPACE="/test"
 
 # build the docker container
