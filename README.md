@@ -7,7 +7,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 
 ## Versions supported
 * `clang-format-9`
-* `clang-format-10` (n.b. use v3.4.0 of this action to access it)
+* `clang-format-10` (n.b. use v3.5.0 of this action to access it)
 * `clang-format-11`
 * `clang-format-12`
 * `clang-format-13`
