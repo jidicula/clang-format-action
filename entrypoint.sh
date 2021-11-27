@@ -8,7 +8,7 @@
 # Checks all C/C++/Protobuf files (.h, .H, .hpp, .hh, .h++, .hxx and .c, .C,
 # .cpp, .cc, .c++, .cxx, .proto) in the provided GitHub repository path
 # (arg1) for conforming to clang-format. If no path is provided or provided path
-# is not a directory, all C/C++/Protobuf files are checked. If any C files are
+# is not a directory, all C/C++/Protobuf files are checked. If any files are
 # incorrectly formatted, the script lists them and exits with 1.
 #
 # Define your own formatting rules in a .clang-format file at your repository
