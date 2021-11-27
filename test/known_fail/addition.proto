@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package addition;
+
+message add_res { uint64 result = 1; }
+message add_req {
+	uint64 a = 1; uint64 b = 2;
+}
+
+service addition {
+	rpc add(add_req) returns (add_res);
+}
