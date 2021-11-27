@@ -21,7 +21,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
   * Default: `13`
   * Available versions: every version of `clang-format` available on [Debian Sid](https://packages.debian.org/search?suite=sid&searchon=names&keywords=clang-format).
-* `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++ formatting.
+* `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
 * `fallback-style` [optional]: The fallback style for `clang-format` if no `.clang-format` file exists in your repository.
@@ -31,7 +31,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
   * Default: `^$`
   * Pattern matching is done with a real regex, not a glob expression. You can exclude multiple patterns like this: `(hello|world)`.
 
-This action checks all C/C++ (including Arduino `.ino` and `.pde`) files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++ files are checked.
+This action checks all C/C++/Protobuf (including Arduino `.ino` and `.pde`) files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++/Protobuf files are checked.
 
 The following file extensions are checked:
 * Header files:
@@ -50,11 +50,13 @@ The following file extensions are checked:
   * `.cxx`
   * `.ino`
   * `.pde`
+* Protobuf files:
+  * `.proto`
 
 ## Returns:
 
-* SUCCESS: zero exit-code if C/C++ files in `check-path` are formatted correctly
-* FAILURE: nonzero exit-code if C/C++ files in `check-path` are not formatted correctly
+* SUCCESS: zero exit-code if C/C++/Protobuf files in `check-path` are formatted correctly
+* FAILURE: nonzero exit-code if C/C++/Protobuf files in `check-path` are not formatted correctly
 
 # Usage
 
@@ -71,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run clang-format style check for C/C++ programs.
+    - name: Run clang-format style check for C/C++/Protobuf programs.
       uses: jidicula/clang-format-action@v4.3.0
       with:
         clang-format-version: '13'
@@ -96,7 +98,7 @@ jobs:
           - 'examples'
     steps:
     - uses: actions/checkout@v2
-    - name: Run clang-format style check for C/C++ programs.
+    - name: Run clang-format style check for C/C++/Protobuf programs.
       uses: jidicula/clang-format-action@v4.3.0
       with:
         clang-format-version: '13'
@@ -123,7 +125,7 @@ jobs:
             exclude: ''              # Nothing to exclude
     steps:
     - uses: actions/checkout@v2
-    - name: Run clang-format style check for C/C++ programs.
+    - name: Run clang-format style check for C/C++/Protobuf programs.
       uses: jidicula/clang-format-action@v4.3.0
       with:
         clang-format-version: '13'
