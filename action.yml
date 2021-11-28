@@ -1,5 +1,5 @@
 name: "clang-format Check"
-description: "Use clang-format to see if your C/C++ code is formatted according to project guidelines."
+description: "Use clang-format to see if your C/C++/Protobuf code is formatted according to project guidelines."
 
 branding:
   icon: "check-circle"
@@ -11,7 +11,7 @@ inputs:
     required: false
     default: '13'
   check-path:
-    description: 'The path to the directory you want to check for correct C/C++ formatting. Default is the full repository.'
+    description: 'The path to the directory you want to check for correct C/C++/Protobuf formatting. Default is the full repository.'
     required: false
     default: '.'
   exclude-regex:
