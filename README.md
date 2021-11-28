@@ -1,4 +1,6 @@
-[![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
+| `main` | [![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain) |
+|---|---|
+| `3.5.x` | [![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg?branch=3.5)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml/badge.svg?branch=3.5)](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml) |
 
 # clang-format-action
 GitHub Action for clang-format checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
