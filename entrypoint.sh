@@ -61,10 +61,10 @@ exit_code=0
 #   c, C, cpp, cc, c++, cxx
 #   ino, pde
 #   proto
-c_files=$(find "$CHECK_PATH" -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde)|(proto))$')
+src_files=$(find "$CHECK_PATH" -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde)|(proto))$')
 
-# check formatting in each C file
-for file in $c_files; do
+# check formatting in each source file
+for file in $src_files; do
 	# Only check formatting if the path doesn't match the regex
 	if ! [[ "${file}" =~ $EXCLUDE_REGEX ]]; then
 		format_diff "${file}"
