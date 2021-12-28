@@ -8,11 +8,11 @@ GitHub Action for clang-format checks. Note that this Action does **NOT** format
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
 ## Versions supported
-* `clang-format-6` (n.b. use v3.5.1 of this action to access it)
-* `clang-format-7` (n.b. use v3.5.1 of this action to access it)
-* `clang-format-8` (n.b. use v3.5.1 of this action to access it)
+* `clang-format-6` (n.b. use v3.5.2 of this action to access it)
+* `clang-format-7` (n.b. use v3.5.2 of this action to access it)
+* `clang-format-8` (n.b. use v3.5.2 of this action to access it)
 * `clang-format-9`
-* `clang-format-10` (n.b. use v3.5.1 of this action to access it)
+* `clang-format-10` (n.b. use v3.5.2 of this action to access it)
 * `clang-format-11`
 * `clang-format-12`
 * `clang-format-13`
