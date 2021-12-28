@@ -61,7 +61,7 @@ exit_code=0
 #   c, C, cpp, cc, c++, cxx
 #   ino, pde
 #   proto
-src_files=$(find "$CHECK_PATH" -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde)|(proto))$')
+src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde)|(proto))$' -print)
 
 # check formatting in each source file
 for file in $src_files; do
