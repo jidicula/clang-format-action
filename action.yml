@@ -24,11 +24,16 @@ inputs:
     default: 'llvm'
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    CLANG_FORMAT_VERSION: ${{ inputs.clang-format-version }}
-  args:
-    - ${{ inputs.check-path }}
-    - ${{ inputs.fallback-style }}
-    - ${{ inputs.exclude-regex }}
+  using: "composite"
+  steps:
+    - name: Generate Dockerfile
+      run: ${{ github.action_path }}/scripts/generateDockerfile.sh "${{ inputs.clang-format-version }}"
+      shell: bash
+    - name: Build Dockerfile
+      run: ${{ github.action_path }}/scripts/buildDockerfile.sh
+      shell: bash
+    - name: Run Dockerfile
+      run: ${{ github.action_path }}/scripts/runDockerfile.sh "/clang-format-action/workspace" "${{ inputs.check-path }}" "${{ inputs.fallback-style }}" "${{ inputs.exclude-regex }}"
+      shell: bash
+      env:
+          ADDITIONAL_DOCKER_RUN_ARGS: "-v ${{ github.workspace }}:/clang-format-action/workspace"

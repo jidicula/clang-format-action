@@ -2,19 +2,20 @@
 
 FALLBACK_STYLE="llvm"
 EXCLUDE_REGEX="capital"
-CLANG_FORMAT_VERSION="13"
-GITHUB_WORKSPACE="/test"
+CLANG_FORMAT_VERSION="10"
+WORKSPACE="/test"
+
+root_dir="$(dirname "$(readlink -f "$0")")/.."
 
 # build the docker container
-docker build . --file Dockerfile --tag clang-format-action-test --no-cache
-docker_status="$?"
-if [[ "$docker_status" != "0" ]]; then
-	echo "failed to build the dockerfile"
-	exit 1
-fi
+"$root_dir/scripts/generateDockerfile.sh" "$CLANG_FORMAT_VERSION"
+"$root_dir/scripts/buildDockerfile.sh"
+
+ADDITIONAL_DOCKER_RUN_ARGS="-v $(pwd)/test:/test"
+export ADDITIONAL_DOCKER_RUN_ARGS
 
 # should succeed
-docker run -e CLANG_FORMAT_VERSION=$CLANG_FORMAT_VERSION -e GITHUB_WORKSPACE=$GITHUB_WORKSPACE -v "$(pwd)"/test:/test --privileged clang-format-action-test known_pass $FALLBACK_STYLE $EXCLUDE_REGEX
+"$root_dir/scripts/runDockerfile.sh" "$WORKSPACE" known_pass "$FALLBACK_STYLE" "$EXCLUDE_REGEX"
 docker_status="$?"
 if [[ "$docker_status" != "0" ]]; then
 	echo "files that should succeed have failed!"
@@ -22,7 +23,7 @@ if [[ "$docker_status" != "0" ]]; then
 fi
 
 # should fail
-docker run -e CLANG_FORMAT_VERSION=$CLANG_FORMAT_VERSION -e GITHUB_WORKSPACE=$GITHUB_WORKSPACE -v "$(pwd)"/test:/test --privileged clang-format-action-test known_fail $FALLBACK_STYLE $EXCLUDE_REGEX
+"$root_dir/scripts/runDockerfile.sh" "$WORKSPACE" known_fail "$FALLBACK_STYLE" "$EXCLUDE_REGEX"
 docker_status="$?"
 if [[ "$docker_status" == "0" ]]; then
 	echo "files that should fail have succeeded!"

@@ -3,7 +3,7 @@
 ###############################################################################
 #                                entrypoint.sh                                #
 ###############################################################################
-# USAGE: ./entrypoint.sh [<path>] [<fallback style>]
+# USAGE: ./entrypoint.sh <workspace> [<path>] [<fallback style>] [<exclude regex>]
 #
 # Checks all C/C++/Protobuf files (.h, .H, .hpp, .hh, .h++, .hxx and .c, .C,
 # .cpp, .cc, .c++, .cxx, .proto) in the provided GitHub repository path
@@ -20,7 +20,7 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
-	local_format="$(/usr/bin/clang-format-"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+	local_format="$(clang-format -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
 		echo "Failed on file: $filepath"
@@ -31,21 +31,29 @@ format_diff() {
 	return 0
 }
 
-CHECK_PATH="$1"
-FALLBACK_STYLE="$2"
-EXCLUDE_REGEX="$3"
+WORKSPACE="$1"
+CHECK_PATH="$2"
+FALLBACK_STYLE="$3"
+EXCLUDE_REGEX="$4"
+
+echo "##########################################"
+echo "working dir:    ${WORKSPACE}"
+echo "CHECK_PATH:     ${CHECK_PATH}"
+echo "FALLBACK_STYLE: ${FALLBACK_STYLE}"
+echo "EXCLUDE_REGEX:  ${EXCLUDE_REGEX}"
+echo "##########################################"
 
 # Set the regex to an empty string regex if nothing was provided
 if [ -z "$EXCLUDE_REGEX" ]; then
 	EXCLUDE_REGEX="^$"
 fi
 
-# Install clang-format
-echo "Installing clang-format-$CLANG_FORMAT_VERSION"
+if [ -z "$WORKSPACE" ]; then
+	echo "WORKSPACE not set!"
+	exit 1
+fi
 
-apt-get update >/dev/null && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION" >/dev/null
-
-cd "$GITHUB_WORKSPACE" || exit 2
+cd "$WORKSPACE" || exit 2
 
 if [[ ! -d "$CHECK_PATH" ]]; then
 	echo "Not a directory in the workspace, fallback to all files."
