@@ -1,0 +1,36 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: clang-format-${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+    steps:
+    - uses: actions/checkout@v2.4.0
+    - name: Build and test the Docker image
+      run: test/test.sh ${{ matrix.version }}
