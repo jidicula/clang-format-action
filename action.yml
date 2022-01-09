@@ -24,11 +24,7 @@ inputs:
     default: 'llvm'
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    CLANG_FORMAT_VERSION: ${{ inputs.clang-format-version }}
-  args:
-    - ${{ inputs.check-path }}
-    - ${{ inputs.fallback-style }}
-    - ${{ inputs.exclude-regex }}
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/check.sh  ${{ inputs.clang-format-version }} ${{ inputs.check-path }} ${{ inputs.fallback-style }} ${{ inputs.exclude-regex }}
+      shell: bash
