@@ -20,9 +20,10 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
-	local_format="$(/usr/bin/clang-format-"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+	local_format="$(docker run -v "$(pwd)":/workdir -w /workdir ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
+		ls
 		echo "Failed on file: $filepath"
 		echo "$local_format" >&2
 		exit_code=1
@@ -31,19 +32,15 @@ format_diff() {
 	return 0
 }
 
-CHECK_PATH="$1"
-FALLBACK_STYLE="$2"
-EXCLUDE_REGEX="$3"
+CLANG_FORMAT_VERSION="$1"
+CHECK_PATH="$2"
+FALLBACK_STYLE="$3"
+EXCLUDE_REGEX="$4"
 
 # Set the regex to an empty string regex if nothing was provided
 if [ -z "$EXCLUDE_REGEX" ]; then
 	EXCLUDE_REGEX="^$"
 fi
-
-# Install clang-format
-echo "Installing clang-format-$CLANG_FORMAT_VERSION"
-
-apt-get update >/dev/null && apt-get install -y --no-install-recommends clang-format-"$CLANG_FORMAT_VERSION" >/dev/null
 
 cd "$GITHUB_WORKSPACE" || exit 2
 
