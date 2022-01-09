@@ -2,6 +2,8 @@ name: docker-clang-format
 
 on:
   push:
+    branches:
+      - 'main'
     paths:
       - 'clang-format-docker/**'
       - '.github/workflows/clang-format-image.yml'
@@ -60,48 +62,48 @@ jobs:
           tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # get-src:
-  #   name: clang-format ${{ matrix.version }}
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       version: [ "6.0.1", "5.0.2", "4.0.1"]
-  #   steps:
-  #     - run: |
-  #         VERSION="${{ matrix.version }}"
-  #         MAJOR_VERSION="${VERSION%%.*}"
-  #         echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
-  #     - uses: actions/checkout@v2
-  #     - name: Clone llvm-project ${{ matrix.version }}
-  #       uses: actions/checkout@v2
-  #       with:
-  #         repository: 'llvm/llvm-project'
-  #         ref: 'llvmorg-${{ matrix.version }}'
-  #         path: llvm-project
-  #     - name: Build clang-format
-  #       run: |
-  #         cd llvm-project
-  #         mkdir build && cd build
-  #         cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
-  #         make clang-format
-  #         mv bin ../..
-  #     - name: Log in to the Container registry
-  #       uses: docker/login-action@v1.12.0
-  #       with:
-  #         registry: ${{ env.REGISTRY }}
-  #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #     - name: Extract metadata (tags, labels) for Docker
-  #       id: meta
-  #       uses: docker/metadata-action@v3.6.2
-  #       with:
-  #         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-  #     - name: Build and push Docker image
-  #       uses: docker/build-push-action@v2.7.0
-  #       with:
-  #         context: .
-  #         file: "clang-format-docker/Dockerfile"
-  #         push: true
-  #         tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
-  #         labels: ${{ steps.meta.outputs.labels }}
+  get-src:
+    name: clang-format ${{ matrix.version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ "6.0.1", "5.0.2", "4.0.1"]
+    steps:
+      - run: |
+          VERSION="${{ matrix.version }}"
+          MAJOR_VERSION="${VERSION%%.*}"
+          echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v2
+      - name: Clone llvm-project ${{ matrix.version }}
+        uses: actions/checkout@v2
+        with:
+          repository: 'llvm/llvm-project'
+          ref: 'llvmorg-${{ matrix.version }}'
+          path: llvm-project
+      - name: Build clang-format
+        run: |
+          cd llvm-project
+          mkdir build && cd build
+          cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
+          make clang-format
+          mv bin ../..
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3.6.2
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          file: "clang-format-docker/Dockerfile"
+          push: true
+          tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
