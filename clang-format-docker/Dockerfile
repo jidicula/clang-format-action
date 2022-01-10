@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
-COPY clang .
+FROM scratch
+COPY clang-bin .
 
-ENTRYPOINT ["/clang/bin/clang-format"]
+ENTRYPOINT ["/bin/clang-format"]
