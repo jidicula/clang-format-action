@@ -1,4 +1,4 @@
 FROM debian:bullseye-slim
-COPY bin/clang-format /clang-format
+COPY clang .
 
-ENTRYPOINT ["/clang-format"]
+ENTRYPOINT ["/clang/bin/clang-format"]
