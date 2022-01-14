@@ -1,4 +1,4 @@
 FROM scratch
 COPY clang-bin .
 
-ENTRYPOINT ["/bin/clang-format"]
+CMD ["/bin/clang-format"]
