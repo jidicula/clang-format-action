@@ -1,7 +1,7 @@
 [![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
 
 # clang-format-action
-GitHub Action for clang-format checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
+GitHub Action for `clang-format` checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
 
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
@@ -82,7 +82,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.4.1
+      uses: jidicula/clang-format-action@v4.5.0
       with:
         clang-format-version: '13'
         check-path: 'src'
@@ -107,7 +107,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.4.1
+      uses: jidicula/clang-format-action@v4.5.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path }}
@@ -134,7 +134,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.4.1
+      uses: jidicula/clang-format-action@v4.5.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}
