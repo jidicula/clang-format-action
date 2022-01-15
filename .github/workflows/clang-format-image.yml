@@ -24,13 +24,17 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "13.0.0", ubuntu: "20.04"}
-          - {version: "12.0.1", ubuntu: "16.04"}
-          - {version: "11.1.0", ubuntu: "20.10"}
-          - {version: "10.0.1", ubuntu: "16.04"}
-          - {version: "9.0.1", ubuntu: "16.04"}
-          - {version: "8.0.1", ubuntu: "14.04"}
-          - {version: "7.1.0", ubuntu: "14.04"}
+          - {version: "13", ubuntu: "impish"}
+          - {version: "12", ubuntu: "impish"}
+          - {version: "11", ubuntu: "impish"}
+          - {version: "10", ubuntu: "focal"}
+          - {version: "9", ubuntu: "impish"}
+          - {version: "8", ubuntu: "focal"}
+          - {version: "7", ubuntu: "focal"}
+          - {version: "6.0", ubuntu: "focal"}
+          - {version: "5.0", ubuntu: "bionic"}
+          - {version: "4.0", ubuntu: "bionic"}
+          - {version: "3.9", ubuntu: "bionic"}
     steps:
       - uses: actions/checkout@v2
       - name: Get llvm-project binary tar.xz
@@ -38,10 +42,6 @@ jobs:
           VERSION="${{ matrix.version-pair.version }}"
           MAJOR_VERSION="${VERSION%%.*}"
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
-          TARBALL="clang+llvm-${{ matrix.version-pair.version }}-x86_64-linux-gnu-ubuntu-${{ matrix.version-pair.ubuntu }}.tar.xz"
-          wget "https://github.com/llvm/llvm-project/releases/download/llvmorg-${{ matrix.version-pair.version }}/$TARBALL"
-          tar -xf "$TARBALL" && rm *tar.xz
-          mv clang+llvm* clang-bin
       - name: Log in to the Container registry
         uses: docker/login-action@v1.12.0
         with:
@@ -61,50 +61,6 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
-
-  get-src:
-    name: clang-format ${{ matrix.version }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        version: [ "6.0.1", "5.0.2", "4.0.1"]
-    steps:
-      - run: |
-          VERSION="${{ matrix.version }}"
-          MAJOR_VERSION="${VERSION%%.*}"
-          echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
-      - uses: actions/checkout@v2
-      - name: Clone llvm-project ${{ matrix.version }}
-        uses: actions/checkout@v2
-        with:
-          repository: 'llvm/llvm-project'
-          ref: 'llvmorg-${{ matrix.version }}'
-          path: llvm-project
-      - name: Build clang-format
-        run: |
-          cd llvm-project
-          mkdir build && cd build
-          cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm
-          make clang-format
-          cd ..
-          mv build ../clang-bin
-      - name: Log in to the Container registry
-        uses: docker/login-action@v1.12.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v3.6.2
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2.7.0
-        with:
-          context: .
-          file: "clang-format-docker/Dockerfile"
-          push: true
-          tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
-          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            "UBUNTU_VERSION=${{ matrix.version-pair.ubuntu }}"
+            "CLANG_FORMAT_VERSION=${{ matrix.version-pair.version }}"
