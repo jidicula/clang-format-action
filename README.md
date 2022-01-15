@@ -1,4 +1,4 @@
-[![Tests](https://github.com/jidicula/clang-format-action/actions/workflows/test.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/test.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
+[![Tests](https://github.com/jidicula/clang-format-action/actions/workflows/tests.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/tests.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
 
 # clang-format-action
 GitHub Action for `clang-format` checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
