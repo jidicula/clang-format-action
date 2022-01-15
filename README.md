@@ -1,6 +1,4 @@
-| `main` | [![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain) |
-|---|---|
-| `3.5.x` | [![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg?branch=3.5)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml?query=branch%3A3.5) [![shell-lint](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml/badge.svg?branch=3.5)](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml?query=branch%3A3.5) |
+[![Build and Test](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/dockerimage.yml) [![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
 
 # clang-format-action
 GitHub Action for clang-format checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
@@ -8,11 +6,14 @@ GitHub Action for clang-format checks. Note that this Action does **NOT** format
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
 ## Versions supported
-* `clang-format-6` (n.b. use v3.5.2 of this action to access it)
-* `clang-format-7` (n.b. use v3.5.2 of this action to access it)
-* `clang-format-8` (n.b. use v3.5.2 of this action to access it)
+* `clang-format-3.9`
+* `clang-format-4.0`
+* `clang-format-5.0`
+* `clang-format-6.0`
+* `clang-format-7`
+* `clang-format-8`
 * `clang-format-9`
-* `clang-format-10` (n.b. use v3.5.2 of this action to access it)
+* `clang-format-10`
 * `clang-format-11`
 * `clang-format-12`
 * `clang-format-13`
@@ -25,7 +26,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 ## Inputs
 * `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
   * Default: `13`
-  * Available versions: every version of `clang-format` available on [Debian Sid](https://packages.debian.org/search?suite=sid&searchon=names&keywords=clang-format).
+  * Available versions: see [Versions supported](#versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
@@ -64,6 +65,8 @@ The following file extensions are checked:
 * FAILURE: nonzero exit-code if C/C++/Protobuf files in `check-path` are not formatted correctly
 
 # Usage
+
+⚠️This action cannot run on `windows` runners!
 
 ## Single Path
 
