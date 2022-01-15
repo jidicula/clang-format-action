@@ -485,7 +485,7 @@ ReflowComments: false
 SortIncludes: false
 #SortUsingDeclarations: false # Unknown to clang-format-4.0
 SpaceAfterCStyleCast: false
-SpaceAfterTemplateKeyword: true
+#SpaceAfterTemplateKeyword: true # Unknown to clang-format-3.0
 SpaceBeforeAssignmentOperators: true
 #SpaceBeforeCtorInitializerColon: true # Unknown to clang-format-5.0
 #SpaceBeforeInheritanceColon: true # Unknown to clang-format-5.0
