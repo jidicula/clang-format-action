@@ -20,10 +20,15 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
-	local_format="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+	if [[ "$CLANG_FORMAT_VERSION" -gt "9" ]]; then
+		local_format="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+	else
+		formatted="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+		local_format="$(diff -q <(cat "${filepath}") <(echo "${formatted}"))"
+	fi
+
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
-		ls
 		echo "Failed on file: $filepath"
 		echo "$local_format" >&2
 		exit_code=1
