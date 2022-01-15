@@ -66,7 +66,7 @@ The following file extensions are checked:
 
 # Usage
 
-⚠️This action cannot run on `windows` runners!
+⚠️This action does not run on `windows`  GitHub Actions runners!
 
 ## Single Path
 
