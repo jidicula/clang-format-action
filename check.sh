@@ -20,7 +20,7 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
-	local_format="$(docker run -v "$(pwd)":/workdir -w /workdir ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+	local_format="$(docker run -i -v "$(pwd)":/workdir -w /workdir ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	local format_status="$?"
 	if [[ "${format_status}" -ne 0 ]]; then
 		ls
