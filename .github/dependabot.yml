@@ -15,18 +15,3 @@ updates:
     - "jidicula"
   assignees:
     - "jidicula"
-# Maintain dependencies for docker
-- package-ecosystem: "docker"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    day: "saturday"
-    time: "06:00"
-    timezone: "America/Toronto"
-  open-pull-requests-limit: 99
-  commit-message:
-    prefix: "build: "
-  reviewers:
-    - "jidicula"
-  assignees:
-    - "jidicula"
