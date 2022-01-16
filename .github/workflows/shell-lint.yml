@@ -27,11 +27,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2.4.0
-
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.17'
     - name: Install shfmt
-      run: |
-        sudo wget "https://github.com/mvdan/sh/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64" -O /usr/local/bin/shfmt
-        sudo chmod +x /usr/local/bin/shfmt
+      run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
     - name: Check .sh files
       run: shfmt -d .
