@@ -22,6 +22,6 @@ jobs:
         with:
           go-version: '1.17'
       - name: Install ghcr-cleaner
-        run: go install github.com/jidicula/ghcr-cleaner
+        run: go install github.com/jidicula/ghcr-cleaner@latest
       - name: Run ghcr-cleaner
         run: ghcr-cleaner --token "${{ secrets.GITHUB_TOKEN }}" --packagename clang-format
