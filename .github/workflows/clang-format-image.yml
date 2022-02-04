@@ -7,6 +7,7 @@ on:
     paths:
       - 'clang-format-docker/**'
       - '.github/workflows/clang-format-image.yml'
+  workflow_dispatch:
 
 defaults:
   run:
