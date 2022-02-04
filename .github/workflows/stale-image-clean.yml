@@ -24,4 +24,4 @@ jobs:
       - name: Install ghcr-cleaner
         run: go install github.com/jidicula/ghcr-cleaner@latest
       - name: Run ghcr-cleaner
-        run: ghcr-cleaner --token "${{ secrets.GITHUB_TOKEN }}" --packagename clang-format
+        run: ghcr-cleaner --token "${{ secrets.GHCR_DELETE_TOKEN }}" --packagename clang-format
