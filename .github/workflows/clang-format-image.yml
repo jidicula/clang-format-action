@@ -25,6 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "14", ubuntu: "jammy"}
           - {version: "13", ubuntu: "impish"}
           - {version: "12", ubuntu: "impish"}
           - {version: "11", ubuntu: "impish"}
