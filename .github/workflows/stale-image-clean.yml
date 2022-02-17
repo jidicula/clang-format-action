@@ -2,7 +2,7 @@ name: stale-image-clean
 
 on:
   schedule:
-    - cron: '5 4 * * 5'
+    - cron: '5 4 * * *'
   workflow_dispatch:
 
 defaults:
