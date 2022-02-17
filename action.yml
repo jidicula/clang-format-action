@@ -26,5 +26,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/check.sh  ${{ inputs.clang-format-version }} ${{ inputs.check-path }} ${{ inputs.fallback-style }} ${{ inputs.exclude-regex }}
+    - run: >
+        "${{ github.action_path }}/check.sh" "${{ inputs.clang-format-version }}" "${{ inputs.check-path }}" "${{ inputs.fallback-style }}" "${{ inputs.exclude-regex }}"
       shell: bash
