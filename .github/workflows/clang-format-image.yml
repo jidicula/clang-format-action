@@ -8,6 +8,8 @@ on:
       - 'clang-format-docker/**'
       - '.github/workflows/clang-format-image.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '5 3 * * *'
 
 defaults:
   run:
