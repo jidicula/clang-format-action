@@ -9,7 +9,7 @@ on:
       - '.github/workflows/clang-format-image.yml'
   workflow_dispatch:
   schedule:
-    - cron: '5 3 * * *'
+    - cron: '5 4 * * *' # Daily at 04:05
 
 defaults:
   run:
@@ -20,7 +20,7 @@ env:
   IMAGE_NAME: clang-format
 
 jobs:
-  get-binary:
+  publish-image:
     name: clang-format ${{ matrix.version-pair.version }}
     runs-on: ubuntu-latest
     strategy:
@@ -68,3 +68,15 @@ jobs:
           build-args: |
             "UBUNTU_VERSION=${{ matrix.version-pair.ubuntu }}"
             "CLANG_FORMAT_VERSION=${{ matrix.version-pair.version }}"
+  clean-untagged-images:
+    needs: publish-image
+    name: Clean untagged images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - name: Install ghcr-cleaner
+        run: go install github.com/jidicula/ghcr-cleaner@latest
+      - name: Run ghcr-cleaner
+        run: ghcr-cleaner --token "${{ secrets.GHCR_DELETE_TOKEN }}" --packagename clang-format
