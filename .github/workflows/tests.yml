@@ -33,6 +33,6 @@ jobs:
           - 13
           - 14
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
     - name: Build and test the Docker image
       run: test/test.sh ${{ matrix.version }}
