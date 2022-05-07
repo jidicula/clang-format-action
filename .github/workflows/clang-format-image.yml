@@ -47,7 +47,7 @@ jobs:
           MAJOR_VERSION="${VERSION%%.*}"
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
       - name: Log in to the Container registry
-        uses: docker/login-action@v1.14.1
+        uses: docker/login-action@v2.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
