@@ -28,11 +28,11 @@ jobs:
       matrix:
         version-pair:
           - {version: "14", ubuntu: "jammy"}
-          - {version: "13", ubuntu: "impish"}
-          - {version: "12", ubuntu: "impish"}
-          - {version: "11", ubuntu: "impish"}
+          - {version: "13", ubuntu: "jammy"}
+          - {version: "12", ubuntu: "jammy"}
+          - {version: "11", ubuntu: "jammy"}
           - {version: "10", ubuntu: "focal"}
-          - {version: "9", ubuntu: "impish"}
+          - {version: "9", ubuntu: "focal"}
           - {version: "8", ubuntu: "focal"}
           - {version: "7", ubuntu: "focal"}
           - {version: "6.0", ubuntu: "focal"}
