@@ -31,7 +31,7 @@ format_diff() {
 	if [[ ${format_status} -ne 0 ]]; then
 		echo "Failed on file: $filepath" >&2
 		echo "$local_format" >&2
-		exit_code=1
+		exit_code=1 # flip the global exit code
 		return "${format_status}"
 	fi
 	return 0
@@ -73,4 +73,6 @@ for file in $src_files; do
 	fi
 done
 
+# global exit code is flipped to nonzero if any invocation of `format_diff` has
+# a formatting difference.
 exit "$exit_code"
