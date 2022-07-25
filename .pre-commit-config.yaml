@@ -9,6 +9,6 @@ repos:
       - id: mixed-line-ending
       - id: check-added-large-files
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.4.2-1
+    rev: v3.5.1-1
     hooks:
     - id: shfmt
