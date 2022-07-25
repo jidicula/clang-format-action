@@ -20,7 +20,7 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
-	if [[ "$CLANG_FORMAT_VERSION" -gt "9" ]]; then
+	if [[ $CLANG_FORMAT_VERSION -gt "9" ]]; then
 		local_format="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
 	else
 		formatted="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
@@ -28,7 +28,7 @@ format_diff() {
 	fi
 
 	local format_status="$?"
-	if [[ "${format_status}" -ne 0 ]]; then
+	if [[ ${format_status} -ne 0 ]]; then
 		echo "Failed on file: $filepath"
 		echo "$local_format" >&2
 		exit_code=1
@@ -49,7 +49,7 @@ fi
 
 cd "$GITHUB_WORKSPACE" || exit 2
 
-if [[ ! -d "$CHECK_PATH" ]]; then
+if [[ ! -d $CHECK_PATH ]]; then
 	echo "Not a directory in the workspace, fallback to all files."
 	CHECK_PATH="."
 fi
@@ -68,7 +68,7 @@ src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -rege
 # check formatting in each source file
 for file in $src_files; do
 	# Only check formatting if the path doesn't match the regex
-	if ! [[ "${file}" =~ $EXCLUDE_REGEX ]]; then
+	if ! [[ ${file} =~ $EXCLUDE_REGEX ]]; then
 		format_diff "${file}"
 	fi
 done
