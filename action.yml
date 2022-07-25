@@ -29,3 +29,20 @@ runs:
     - run: |
         "${{ github.action_path }}/check.sh" "${{ inputs.clang-format-version }}" "${{ inputs.check-path }}" "${{ inputs.fallback-style }}" "${{ inputs.exclude-regex }}"
       shell: bash
+    - name: Save PR head commit SHA
+      if: failure() && github.event_name == 'pull_request'
+      shell: bash
+      run: |
+        SHA="${{ github.event.pull_request.head.sha }}"
+        echo "SHA=$SHA" >> $GITHUB_ENV
+    - name: Save latest commit SHA if not PR
+      if: failure() && github.event_name != 'pull_request'
+      shell: bash
+      run: echo "SHA=${{ github.sha }}" >> $GITHUB_ENV
+
+    - name: Report failure in job summary
+      if: failure()
+      run: |
+        DEEPLINK="https://github.com/${{ github.repository }}/commit/${{ env.SHA }}"
+        echo -e "Format check failed on commit [${GITHUB_SHA:0:8}]($DEEPLINK) with files:\n$(<$GITHUB_WORKSPACE/failing-files.txt)" >> $GITHUB_STEP_SUMMARY
+      shell: bash
