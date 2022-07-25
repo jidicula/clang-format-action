@@ -29,6 +29,10 @@ format_diff() {
 
 	local format_status="$?"
 	if [[ ${format_status} -ne 0 ]]; then
+		# Append Markdown-bulleted monospaced filepath of failing file to
+		# summary file.
+		echo "* \`$filepath\`" >>failing-files.txt
+
 		echo "Failed on file: $filepath" >&2
 		echo "$local_format" >&2
 		exit_code=1 # flip the global exit code
