@@ -29,7 +29,7 @@ format_diff() {
 
 	local format_status="$?"
 	if [[ ${format_status} -ne 0 ]]; then
-		echo "Failed on file: $filepath"
+		echo "Failed on file: $filepath" >&2
 		echo "$local_format" >&2
 		exit_code=1
 		return "${format_status}"
@@ -50,7 +50,7 @@ fi
 cd "$GITHUB_WORKSPACE" || exit 2
 
 if [[ ! -d $CHECK_PATH ]]; then
-	echo "Not a directory in the workspace, fallback to all files."
+	echo "Not a directory in the workspace, fallback to all files." >&2
 	CHECK_PATH="."
 fi
 
