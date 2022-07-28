@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   tests:
-    name: ubuntu-18.04
+    name: Tests
     uses: ./.github/workflows/tests.yml
     with:
       runner-os: "ubuntu-18.04"
