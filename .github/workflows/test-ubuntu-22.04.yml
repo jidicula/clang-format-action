@@ -1,4 +1,4 @@
-name: ubuntu-22.04
+name: ubuntu-22.04 Tests
 
 on:
   push:
