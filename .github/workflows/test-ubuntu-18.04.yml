@@ -1,0 +1,20 @@
+name: ubuntu-18.04
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  tests:
+    name: ubuntu-18.04
+    uses: ./.github/workflows/tests.yml
+    with:
+      runner-os: "ubuntu-18.04"
