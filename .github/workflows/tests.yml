@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   test:
-    name: clang-format-${{ matrix.clang-format-version }}
+    name: ${{ inputs.runner-os }}-clang-format-${{ matrix.clang-format-version }}
     runs-on: ${{ inputs.runner-os }}
     strategy:
       fail-fast: false
