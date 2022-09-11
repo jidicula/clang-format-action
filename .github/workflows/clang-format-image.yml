@@ -27,6 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "15", ubuntu: "kinetic"}
           - {version: "14", ubuntu: "jammy"}
           - {version: "13", ubuntu: "jammy"}
           - {version: "12", ubuntu: "jammy"}
