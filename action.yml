@@ -46,3 +46,11 @@ runs:
         DEEPLINK="https://github.com/${{ github.repository }}/commit/${{ env.SHA }}"
         echo -e "Format check failed on commit [${GITHUB_SHA:0:8}]($DEEPLINK) with files:\n$(<$GITHUB_WORKSPACE/failing-files.txt)" >> $GITHUB_STEP_SUMMARY
       shell: bash
+
+    # Upload the created artifact
+    - name: Upload
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        path: failing-report.txt
+        name: "${{ github.job }}-${{ join(matrix.*, '-') }}.txt"
