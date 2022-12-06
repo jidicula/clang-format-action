@@ -60,6 +60,7 @@ The following file extensions are checked:
   * `.cxx`
   * `.ino`
   * `.pde`
+  * `.cu`
 * Protobuf files:
   * `.proto`
 

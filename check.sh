@@ -5,10 +5,10 @@
 ###############################################################################
 # USAGE: ./entrypoint.sh [<path>] [<fallback style>]
 #
-# Checks all C/C++/Protobuf files (.h, .H, .hpp, .hh, .h++, .hxx and .c, .C,
-# .cpp, .cc, .c++, .cxx, .proto) in the provided GitHub repository path
+# Checks all C/C++/Protobuf/CUDA files (.h, .H, .hpp, .hh, .h++, .hxx and .c, .C,
+# .cpp, .cc, .c++, .cxx, .proto, .cu) in the provided GitHub repository path
 # (arg1) for conforming to clang-format. If no path is provided or provided path
-# is not a directory, all C/C++/Protobuf files are checked. If any files are
+# is not a directory, all C/C++/Protobuf/CUDA files are checked. If any files are
 # incorrectly formatted, the script lists them and exits with 1.
 #
 # Define your own formatting rules in a .clang-format file at your repository
@@ -16,7 +16,7 @@
 
 # format_diff function
 # Accepts a filepath argument. The filepath passed to this function must point
-# to a C/C++/Protobuf file.
+# to a C/C++/Protobuf/CUDA file.
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
@@ -62,12 +62,13 @@ fi
 exit_code=0
 
 # All files improperly formatted will be printed to the output.
-# find all C/C++/Protobuf files:
+# find all C/C++/Protobuf/CUDA files:
 #   h, H, hpp, hh, h++, hxx
 #   c, C, cpp, cc, c++, cxx
 #   ino, pde
 #   proto
-src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde)|(proto))$' -print)
+#   cu
+src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$' -print)
 
 # check formatting in each source file
 for file in $src_files; do
