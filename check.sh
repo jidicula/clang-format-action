@@ -45,10 +45,22 @@ CLANG_FORMAT_VERSION="$1"
 CHECK_PATH="$2"
 FALLBACK_STYLE="$3"
 EXCLUDE_REGEX="$4"
+INCLUDE_REGEX="$5"
 
 # Set the regex to an empty string regex if nothing was provided
-if [ -z "$EXCLUDE_REGEX" ]; then
+if [[ -z $EXCLUDE_REGEX ]]; then
 	EXCLUDE_REGEX="^$"
+fi
+
+# Set the filetype regex if nothing was provided.
+# Find all C/C++/Protobuf/CUDA files:
+#   h, H, hpp, hh, h++, hxx
+#   c, C, cpp, cc, c++, cxx
+#   ino, pde
+#   proto
+#   cu
+if [[ -z $INCLUDE_REGEX ]]; then
+	INCLUDE_REGEX='^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$'
 fi
 
 cd "$GITHUB_WORKSPACE" || exit 2
@@ -62,13 +74,7 @@ fi
 exit_code=0
 
 # All files improperly formatted will be printed to the output.
-# find all C/C++/Protobuf/CUDA files:
-#   h, H, hpp, hh, h++, hxx
-#   c, C, cpp, cc, c++, cxx
-#   ino, pde
-#   proto
-#   cu
-src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex '^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$' -print)
+src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
 
 # check formatting in each source file
 for file in $src_files; do

@@ -39,11 +39,14 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
   * Available values: `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit` and others listed in the `clang-format` [docs for BasedOnStyle](https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options).
 * `exclude-regex` [optional]: A regex to exclude files or directories that should not be checked.
   * Default: `^$`
-  * Pattern matching is done with a real regex, not a glob expression. You can exclude multiple patterns like this: `(hello|world)`.
+  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at https://regex101.com .
+* `include-regex` [optional]: A regex to include files or directories that should be checked.
+  * Default: `^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$`
+  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at https://regex101.com .
 
 This action checks all C/C++/Protobuf (including Arduino `.ino` and `.pde`) files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++/Protobuf files are checked.
 
-The following file extensions are checked:
+The following file extensions are checked by default:
 * Header files:
   * `.h`
   * `.H`
@@ -71,7 +74,7 @@ The following file extensions are checked:
 
 # Usage
 
-⚠️This action does not run on `windows`  GitHub Actions runners!
+⚠️This action does not run on `windows` GitHub Actions runners!
 
 ## Single Path
 
