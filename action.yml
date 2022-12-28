@@ -31,7 +31,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        "${{ github.action_path }}/check.sh" "${{ inputs.clang-format-version }}" "${{ inputs.check-path }}" "${{ inputs.fallback-style }}" "${{ inputs.exclude-regex }} "${{ inputs.include-regex }}""
+        "${{ github.action_path }}/check.sh" "${{ inputs.clang-format-version }}" "${{ inputs.check-path }}" "${{ inputs.fallback-style }}" "${{ inputs.exclude-regex }}" "${{ inputs.include-regex }}"
       shell: bash
     - name: Save PR head commit SHA
       if: failure() && github.event_name == 'pull_request'
