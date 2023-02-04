@@ -8,27 +8,27 @@ GitHub Action for `clang-format` checks. Note that this Action does **NOT** form
 
 You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
 
-## Versions supported
-* `clang-format-3.9`
-* `clang-format-4.0`
-* `clang-format-5.0`
-* `clang-format-6.0`
-* `clang-format-7`
-* `clang-format-8`
-* `clang-format-9`
-* `clang-format-10`
-* `clang-format-11`
-* `clang-format-12`
-* `clang-format-13`
-* `clang-format-14`
-* `clang-format-15`
+## Major versions supported
+* 3: `clang-format-3.9`
+* 4: `clang-format-4.0`
+* 5: `clang-format-5.0`
+* 6: `clang-format-6.0`
+* 7: `clang-format-7`
+* 8: `clang-format-8`
+* 9: `clang-format-9`
+* 10: `clang-format-10`
+* 11:  `clang-format-11`
+* 12: `clang-format-12`
+* 13: `clang-format-13`
+* 14: `clang-format-14`
+* 15: `clang-format-15`
 
 ## Do you find this useful?
 
 You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
-* `clang-format-version` [optional]: The version of `clang-format` that you want to run on your codebase.
+* `clang-format-version` [optional]: The major version of `clang-format` that you want to run on your codebase.
   * Default: `13`
   * Available versions: see [Versions supported](#versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
