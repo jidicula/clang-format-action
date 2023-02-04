@@ -77,6 +77,7 @@ exit_code=0
 src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
 
 # check formatting in each source file
+IFS=$'\n' # Loop below should separate on new lines, not spaces.
 for file in $src_files; do
 	# Only check formatting if the path doesn't match the regex
 	if ! [[ ${file} =~ $EXCLUDE_REGEX ]]; then
