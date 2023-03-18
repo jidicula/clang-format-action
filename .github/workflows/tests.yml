@@ -32,6 +32,7 @@ jobs:
           - 13
           - 14
           - 15
+          - 16
     steps:
     - uses: actions/checkout@v3
     - name: Build and test the Docker image
