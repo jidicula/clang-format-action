@@ -1,3 +1,6 @@
+# This callable workflow is called from separate workflows for each Ubuntu
+# runner version. We use separate workflows for runner version rather than a
+# matrix to allow creating status badges for each runner version.
 name: Tests
 
 on:
