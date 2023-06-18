@@ -9,6 +9,9 @@ on:
       runner-os:
         required: true
         type: string
+      ref-name:
+        required: true
+        type: string
 
 defaults:
   run:
@@ -72,7 +75,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run clang-format style check for C/C++ programs.
         id: check
-        uses: jidicula/clang-format-action@${{ github.ref_name }}
+        uses: jidicula/clang-format-action@${{ inputs.ref-name }}
         continue-on-error: ${{ matrix.path['known_fail'] }}
         with:
           check-path: ${{ matrix.path['check'] }}

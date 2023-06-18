@@ -16,3 +16,4 @@ jobs:
     uses: ./.github/workflows/tests.yml
     with:
       runner-os: "ubuntu-22.04"
+      ref-name: "${{ github.ref_name }}"
