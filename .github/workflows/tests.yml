@@ -21,7 +21,6 @@ jobs:
   test:
     name: ${{ inputs.runner-os }}-clang-format-${{ matrix.clang-format-version }}
     runs-on: ${{ inputs.runner-os }}
-    continue-on-error: ${{ matrix.path['known_fail'] }}
     strategy:
       fail-fast: false
       matrix:
@@ -45,7 +44,7 @@ jobs:
     - name: Build and test the Docker image
       run: test/test.sh ${{ matrix.clang-format-version }}
   e2e:
-    name: E2E ${{ inputs.runner-os }}-clang-format-${{ matrix.clang-format-version }}
+    name: E2E ${{ inputs.runner-os }}-clang-format-${{ matrix.clang-format-version }}-${{ matrix.path['check'] }}
     runs-on: ${{ inputs.runner-os }}
     strategy:
       fail-fast: false
@@ -77,10 +76,11 @@ jobs:
       - name: Run clang-format style check for C/C++ programs.
         id: check
         uses: ./../clang-format-action
+        continue-on-error: ${{ matrix.path['known_fail'] }}
         with:
           check-path: ${{ matrix.path['check'] }}
           clang-format-version: ${{ matrix.clang-format-version }}
           exclude-regex: ${{ matrix.path['exclude'] }}
-      - name: The check step has failed
-        if: ${{ steps.check.conclusion == 'success' && matrix.path['known_fail'] }}
+      - name: Incorrect success on known-fail test
+        if: ${{ steps.check.outcome == 'success' && matrix.path['known_fail'] }}
         run: exit 1
