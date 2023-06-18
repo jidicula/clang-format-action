@@ -16,4 +16,3 @@ jobs:
     uses: ./.github/workflows/tests.yml
     with:
       runner-os: "ubuntu-20.04"
-      ref-name: ${{ github.ref_name }}

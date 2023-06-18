@@ -9,9 +9,6 @@ on:
       runner-os:
         required: true
         type: string
-      ref-name:
-        required: true
-        type: string
 
 defaults:
   run:
