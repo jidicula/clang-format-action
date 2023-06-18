@@ -21,6 +21,7 @@ jobs:
   test:
     name: ${{ inputs.runner-os }}-clang-format-${{ matrix.clang-format-version }}
     runs-on: ${{ inputs.runner-os }}
+    continue-on-error: ${{ matrix.path['known_fail'] }}
     strategy:
       fail-fast: false
       matrix:
@@ -76,7 +77,6 @@ jobs:
       - name: Run clang-format style check for C/C++ programs.
         id: check
         uses: ./../clang-format-action
-        continue-on-error: ${{ matrix.path['known_fail'] }}
         with:
           check-path: ${{ matrix.path['check'] }}
           clang-format-version: ${{ matrix.clang-format-version }}
