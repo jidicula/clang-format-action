@@ -28,10 +28,10 @@ jobs:
       matrix:
         version-pair:
           - {version: "17", ubuntu: "mantic"}
-          - {version: "16", ubuntu: "mantic"}
-          - {version: "15", ubuntu: "mantic"}
-          - {version: "14", ubuntu: "mantic"}
-          - {version: "13", ubuntu: "mantic"}
+          - {version: "16", ubuntu: "lunar"}
+          - {version: "15", ubuntu: "lunar"}
+          - {version: "14", ubuntu: "jammy"}
+          - {version: "13", ubuntu: "jammy"}
           - {version: "12", ubuntu: "jammy"}
           - {version: "11", ubuntu: "jammy"}
           - {version: "10", ubuntu: "focal"}
