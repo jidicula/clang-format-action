@@ -24,7 +24,6 @@ format_diff() {
 		local_format="$(docker run \
 			--volume "$(pwd)":"$(pwd)" \
 			--workdir "$(pwd)" \
-			--rm \
 			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
 			--dry-run \
 			--Werror \
@@ -35,7 +34,6 @@ format_diff() {
 		formatted="$(docker run \
 			--volume "$(pwd)":"$(pwd)" \
 			--workdir "$(pwd)" \
-			--rm \
 			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
