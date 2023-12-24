@@ -67,12 +67,13 @@ jobs:
           - 18
         path:
           - check: 'test/known_fail'
-            exclude: 'capi'
+            exclude: 'capital'
             known_fail: true
           - check: 'test/known_pass'
-            exclude: 'capi'
+            exclude: 'capital'
             known_fail: false
           - check: 'test/load_test'
+            exclude: 'capital'
             known_fail: false
     steps:
       - uses: actions/checkout@v4
