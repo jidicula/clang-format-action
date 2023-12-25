@@ -3,7 +3,7 @@
 ###############################################################################
 #                                check.sh                                     #
 ###############################################################################
-# USAGE: ./entrypoint.sh [<path>] [<fallback style>]
+# USAGE: ./check.sh [<path>] [<fallback style>]
 #
 # Checks all C/C++/Protobuf/CUDA files (.h, .H, .hpp, .hh, .h++, .hxx and .c,
 # .C, .cpp, .cc, .c++, .cxx, .proto, .cu) in the provided GitHub repository path
@@ -94,15 +94,20 @@ docker run \
 	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --version
 
 # All files improperly formatted will be printed to the output.
-src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
+src_files=$(find \
+	"$CHECK_PATH" \
+	-name .git \
+	-prune \
+	-o \
+	-regextype posix-egrep \
+	-not -regex "$EXCLUDE_REGEX" \
+	-a -regex "$INCLUDE_REGEX" \
+	-print)
 
 # check formatting in each source file
 IFS=$'\n' # Loop below should separate on new lines, not spaces.
 for file in $src_files; do
-	# Only check formatting if the path doesn't match the regex
-	if ! [[ ${file} =~ $EXCLUDE_REGEX ]]; then
-		format_diff "${file}"
-	fi
+	format_diff "${file}"
 done
 
 # global exit code is flipped to nonzero if any invocation of `format_diff` has
