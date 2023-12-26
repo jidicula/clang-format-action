@@ -101,14 +101,13 @@ src_files=$(find \
 	-o \
 	-regextype posix-egrep \
 	-regex "$INCLUDE_REGEX" \
+	-not -regex "$EXCLUDE_REGEX" \
 	-print)
 
 # check formatting in each source file
 IFS=$'\n' # Loop below should separate on new lines, not spaces.
 for file in $src_files; do
-	if ! [[ ${file} =~ $EXCLUDE_REGEX ]]; then
-		format_diff "${file}"
-	fi
+	format_diff "${file}"
 done
 
 # global exit code is flipped to nonzero if any invocation of `format_diff` has
