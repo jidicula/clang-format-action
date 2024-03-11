@@ -27,10 +27,11 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "17", ubuntu: "mantic"}
-          - {version: "16", ubuntu: "lunar"}
-          - {version: "15", ubuntu: "lunar"}
-          - {version: "14", ubuntu: "jammy"}
+          - {version: "18", ubuntu: "noble"}
+          - {version: "17", ubuntu: "noble"}
+          - {version: "16", ubuntu: "noble"}
+          - {version: "15", ubuntu: "noble"}
+          - {version: "14", ubuntu: "noble"}
           - {version: "13", ubuntu: "jammy"}
           - {version: "12", ubuntu: "jammy"}
           - {version: "11", ubuntu: "jammy"}
