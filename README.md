@@ -24,6 +24,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 15: `clang-format-15`
 * 16: `clang-format-16`
 * 17: `clang-format-17`
+* 18: `clang-format-18`
 
 ## Do you find this useful?
 
@@ -32,7 +33,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 ## Inputs
 * `clang-format-version` [optional]: The major version of `clang-format` that you want to run on your codebase.
   * Default: `13`
-  * Available versions: see [Versions supported](#versions-supported)
+  * Available versions: see [Versions supported](#major-versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
   * For cleaner output (i.e. with no double-slashed paths), the final directory in this path should have no trailing slash, e.g. `src` and not `src/`.
