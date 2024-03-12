@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-#                                entrypoint.sh                                #
+#                                check.sh                                     #
 ###############################################################################
 # USAGE: ./entrypoint.sh [<path>] [<fallback style>]
 #
@@ -21,9 +21,23 @@ format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
 	if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
-		local_format="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" --rm ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" -n --Werror --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+		local_format="$(docker run \
+			--volume "$(pwd)":"$(pwd)" \
+			--workdir "$(pwd)" \
+			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
+			--dry-run \
+			--Werror \
+			--style=file \
+			--fallback-style="$FALLBACK_STYLE" \
+			"${filepath}")"
 	else # Versions below 9 don't have dry run
-		formatted="$(docker run -i -v "$(pwd)":"$(pwd)" -w "$(pwd)" --rm ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --style=file --fallback-style="$FALLBACK_STYLE" "${filepath}")"
+		formatted="$(docker run \
+			--volume "$(pwd)":"$(pwd)" \
+			--workdir "$(pwd)" \
+			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
+			--style=file \
+			--fallback-style="$FALLBACK_STYLE" \
+			"${filepath}")"
 		local_format="$(diff -q <(cat "${filepath}") <(echo "${formatted}"))"
 	fi
 
