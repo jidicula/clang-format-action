@@ -24,6 +24,15 @@ if [[ $docker_status == "0" ]]; then
 	exit 2
 fi
 
+# load test on known_pass/addition.c copies
+
+"$GITHUB_WORKSPACE"/check.sh "$CLANG_FORMAT_VERSION" "$GITHUB_WORKSPACE/test/load_test" "$FALLBACK_STYLE" "$EXCLUDE_REGEX"
+docker_status="$?"
+if [[ $docker_status != "0" ]]; then
+	echo "files that should succeed have failed in the loadtest!"
+	exit 3
+fi
+
 ###############################################################################
 #                            Custom filetype regex                            #
 ###############################################################################
