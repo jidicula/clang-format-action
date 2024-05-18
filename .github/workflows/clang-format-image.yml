@@ -19,6 +19,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: clang-format
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish-image:
     name: clang-format ${{ matrix.version-pair.version }}
