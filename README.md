@@ -4,9 +4,9 @@
 
 
 # clang-format-action
-GitHub Action for `clang-format` checks. Note that this Action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
+An action for `clang-format` checks. This action does **NOT** format your code for you - it only verifies that your repository's code follows your project's formatting conventions.
 
-You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this Action in a [matrix run](#multiple-paths).
+You can define your own formatting rules in a `.clang-format` file at your repository root, or you can provide a fallback style (see [`fallback-style`](#inputs)). You can also provide a path to check. If you want to run checks against multiple paths in your repository, you can use this action in a [matrix run](#multiple-paths).
 
 ## Major versions supported
 * 3: `clang-format-3.9`
@@ -17,7 +17,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 8: `clang-format-8`
 * 9: `clang-format-9`
 * 10: `clang-format-10`
-* 11:  `clang-format-11`
+* 11: `clang-format-11`
 * 12: `clang-format-12`
 * 13: `clang-format-13`
 * 14: `clang-format-14`
@@ -25,6 +25,14 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 16: `clang-format-16`
 * 17: `clang-format-17`
 * 18: `clang-format-18`
+
+## Action version upgrade guarantee
+
+> [!IMPORTANT]
+> This action complies with the [Semantic Versioning spec](https://semver.org) for how it's called from GitHub Actions workflows. This means that for version format `x.y.z`, minor and patch version increments `y++` and `z++` will not break existing functionality for how this action is called in your GitHub Actions workflows. Major version increments (`x++`) *will* include breaking changes in how this action is called. If you notice version changes that violate this guarantee, [open an issue](https://github.com/jidicula/clang-format-action/issues/new?template=Blank+issue) and let's work together to fix it 😁.
+
+> [!CAUTION]
+> I provide no guarantees for formatting breakages *within* `clang-format` versions. This action only supports major versions of `clang-format` and doesn't support granular specification of `clang-format` minor or patch versions. It's possible that a formatting check workflow using this action and a pinned version of `clang-format` could break in a subsequent run if the underlying `clang-format` Ubuntu package has introduced a breaking minor or patch version change. I'm not sure how often this happens - vote in [this poll](https://github.com/jidicula/clang-format-action/discussions/192) and optionally leave a comment so I can understand this problem more.
 
 ## Do you find this useful?
 
@@ -42,10 +50,10 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
   * Available values: `LLVM`, `Google`, `Chromium`, `Mozilla`, `WebKit` and others listed in the `clang-format` [docs for BasedOnStyle](https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options).
 * `exclude-regex` [optional]: A regex to exclude files or directories that should not be checked.
   * Default: `^$`
-  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at https://regex101.com .
+  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at [regex101.com](https://regex101.com) ([example](https://regex101.com/r/llFcLy/7)).
 * `include-regex` [optional]: A regex to include files or directories that should be checked.
-  * Default: `^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$`
-  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at https://regex101.com .
+  * Default: see [`INCLUDE_REGEX`](./check.sh#77)
+  * Pattern matching is done with a POSIX `grep -E` extended regex, **not** a glob expression. You can exclude multiple patterns like this: `(hello|world)`. Build and verify your regex at [regex101.com](https://regex101.com) ([example](https://regex101.com/r/llFcLy/7)).
 
 This action checks all C/C++/Protobuf (including Arduino `.ino` and `.pde`) files in the provided directory in the GitHub workspace are formatted correctly using `clang-format`. If no directory is provided or the provided path is not a directory in the GitHub workspace, all C/C++/Protobuf files are checked.
 
@@ -77,7 +85,8 @@ The following file extensions are checked by default:
 
 # Usage
 
-⚠️This action does not run on `windows` GitHub Actions runners!
+> [!WARNING]
+> This action is not supported on `windows` GitHub Actions runners!
 
 ## Single Path
 
@@ -91,9 +100,9 @@ jobs:
     name: Formatting Check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.11.0
+      uses: jidicula/clang-format-action@v4.12.0
       with:
         clang-format-version: '13'
         check-path: 'src'
@@ -116,9 +125,9 @@ jobs:
           - 'src'
           - 'examples'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.11.0
+      uses: jidicula/clang-format-action@v4.12.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path }}
@@ -143,9 +152,9 @@ jobs:
           - check: 'examples'
             exclude: ''              # Nothing to exclude
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.11.0
+      uses: jidicula/clang-format-action@v4.12.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}
@@ -155,4 +164,4 @@ jobs:
 
 # Who uses this?
 
-[These public repos](https://github.com/search?o=desc&q=uses%3A+jidicula%2Fclang-format-action+-user%3Ajidicula&s=indexed&type=Code) use this Action.
+[These public repos](https://github.com/search?q=%22uses%3A+jidicula%2Fclang-format-action%22+-user%3Ajidicula&type=code) use this Action.
