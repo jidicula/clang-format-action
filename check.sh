@@ -87,6 +87,12 @@ fi
 # initialize exit code
 exit_code=0
 
+# output clang-format version
+docker run \
+	--volume "$(pwd)":"$(pwd)" \
+	--workdir "$(pwd)" \
+	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --version
+
 # All files improperly formatted will be printed to the output.
 src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
 
