@@ -9,7 +9,7 @@ on:
 jobs:
   shellcheck:
     name: Run Shellcheck on shellscripts
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
     needs: shellcheck
     env:
       SHFMT_VERSION: 3.0.1
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
