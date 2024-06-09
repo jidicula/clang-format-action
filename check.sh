@@ -21,14 +21,14 @@ format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
 	if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
-		local_format="$(clang-format-$CLANG_FORMAT_MAJOR_VERSION \
+		local_format="$("clang-format-$CLANG_FORMAT_MAJOR_VERSION" \
 			--dry-run \
 			--Werror \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
 			"${filepath}")"
 	else # Versions below 9 don't have dry run
-		formatted="$(clang-format-$CLANG_FORMAT_MAJOR_VERSION \
+		formatted="$("clang-format-$CLANG_FORMAT_MAJOR_VERSION" \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
 			"${filepath}")"
@@ -82,7 +82,7 @@ fi
 exit_code=0
 
 # output clang-format version
-clang-format-$CLANG_FORMAT_MAJOR_VERSION --version
+"clang-format-$CLANG_FORMAT_MAJOR_VERSION" --version
 
 # All files improperly formatted will be printed to the output.
 src_files=$(find \
