@@ -21,14 +21,14 @@ format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
 	if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
-		local_format="$(clang-format \
+		local_format="$(clang-format-$CLANG_FORMAT_MAJOR_VERSION \
 			--dry-run \
 			--Werror \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
 			"${filepath}")"
 	else # Versions below 9 don't have dry run
-		formatted="$(clang-format \
+		formatted="$(clang-format-$CLANG_FORMAT_MAJOR_VERSION \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
 			"${filepath}")"
@@ -70,7 +70,7 @@ fi
 if [[ -z $INCLUDE_REGEX ]]; then
 	INCLUDE_REGEX='^.*\.((((c|C)(c|pp|xx|\+\+)?$)|((h|H)h?(pp|xx|\+\+)?$))|(ino|pde|proto|cu))$'
 fi
-
+echo "in check.sh"
 cd "$GITHUB_WORKSPACE" || exit 2
 
 if [[ ! -d $CHECK_PATH ]]; then
@@ -82,10 +82,7 @@ fi
 exit_code=0
 
 # output clang-format version
-docker run \
-	--volume "$(pwd)":"$(pwd)" \
-	--workdir "$(pwd)" \
-	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --version
+clang-format-$CLANG_FORMAT_MAJOR_VERSION --version
 
 # All files improperly formatted will be printed to the output.
 src_files=$(find \
