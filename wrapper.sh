@@ -6,6 +6,8 @@ FALLBACK_STYLE="$3"
 EXCLUDE_REGEX="$4"
 INCLUDE_REGEX="$5"
 
+echo "in wrapper.sh"
+
 docker run \
 	--volume "$(pwd)":"$(pwd)" \
 	--workdir "$(pwd)" \
