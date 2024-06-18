@@ -86,9 +86,10 @@ if [[ ! -d $CHECK_PATH ]]; then
 fi
 
 if [[ ! -f $FORMAT_FILEPATH ]]; then
-	echo "Not a file in the workspace, fallback to .clang_format." >&2
+	echo "Not a file in the workspace, fallback to search for .clang_format." >&2
 	FORMAT_FILEPATH=""
 else
+	# if being used, add the colon for seperating the syntax file:<file_name>
 	FORMAT_FILEPATH=":$FORMAT_FILEPATH"
 fi
 
