@@ -85,10 +85,10 @@ if [[ ! -d $CHECK_PATH ]]; then
 	CHECK_PATH="."
 fi
 
-if [[ ! -f $FORMAT_FILEPATH ]]; then
+if [[ -n $FORMAT_FILEPATH ]] && [[ ! -f $FORMAT_FILEPATH ]]; then
 	echo "Not a file in the workspace, fallback to search for .clang_format." >&2
 	FORMAT_FILEPATH=""
-else
+elif [[ -n $FORMAT_FILEPATH ]]; then
 	# if being used, add the colon for seperating the syntax file:<file_name>
 	FORMAT_FILEPATH=":$FORMAT_FILEPATH"
 fi
