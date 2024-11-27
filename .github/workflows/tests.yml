@@ -38,7 +38,6 @@ jobs:
           - 16
           - 17
           - 18
-          - 19
     steps:
     - uses: actions/checkout@v4
     - name: Build and test the Docker image
@@ -66,7 +65,6 @@ jobs:
           - 16
           - 17
           - 18
-          - 19
         path:
           - check: 'test/known_fail'
             exclude: 'capital'
