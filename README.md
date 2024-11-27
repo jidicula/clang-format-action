@@ -25,6 +25,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 16: `clang-format-16`
 * 17: `clang-format-17`
 * 18: `clang-format-18`
+* 19: `clang-format-19`
 
 ## Action version upgrade guarantee
 
