@@ -25,6 +25,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 16: `clang-format-16`
 * 17: `clang-format-17`
 * 18: `clang-format-18`
+* 19: `clang-format-19`
 
 ## Action version upgrade guarantee
 
@@ -104,7 +105,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: jidicula/clang-format-action@v4.14.0
       with:
         clang-format-version: '13'
         check-path: 'src'
@@ -129,7 +130,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: jidicula/clang-format-action@v4.14.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path }}
@@ -156,7 +157,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: jidicula/clang-format-action@v4.14.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}

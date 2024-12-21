@@ -31,6 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "19", ubuntu: "oracular"}
           - {version: "18", ubuntu: "noble"}
           - {version: "17", ubuntu: "noble"}
           - {version: "16", ubuntu: "noble"}
@@ -62,11 +63,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5.5.1
+        uses: docker/metadata-action@v5.6.1
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6.5.0
+        uses: docker/build-push-action@v6.10.0
         with:
           context: .
           file: "clang-format-docker/Dockerfile"
