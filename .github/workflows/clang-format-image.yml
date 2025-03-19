@@ -31,6 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "20", ubuntu: "oracular"}
           - {version: "19", ubuntu: "oracular"}
           - {version: "18", ubuntu: "noble"}
           - {version: "17", ubuntu: "noble"}
