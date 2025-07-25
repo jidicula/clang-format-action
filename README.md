@@ -104,13 +104,13 @@ jobs:
     name: Formatting Check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
-      with:
-        clang-format-version: '13'
-        check-path: 'src'
-        fallback-style: 'Mozilla' # optional
+      - uses: actions/checkout@v4
+      - name: Run clang-format style check for C/C++/Protobuf programs.
+        uses: jidicula/clang-format-action@v4.15.0
+        with:
+          clang-format-version: "13"
+          check-path: "src"
+          fallback-style: "Mozilla" # optional
 ```
 
 ## Multiple Paths
@@ -126,16 +126,16 @@ jobs:
     strategy:
       matrix:
         path:
-          - 'src'
-          - 'examples'
+          - "src"
+          - "examples"
     steps:
-    - uses: actions/checkout@v4
-    - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
-      with:
-        clang-format-version: '13'
-        check-path: ${{ matrix.path }}
-        fallback-style: 'Mozilla' # optional
+      - uses: actions/checkout@v4
+      - name: Run clang-format style check for C/C++/Protobuf programs.
+        uses: jidicula/clang-format-action@v4.15.0
+        with:
+          clang-format-version: "13"
+          check-path: ${{ matrix.path }}
+          fallback-style: "Mozilla" # optional
 ```
 
 ## Multiple Paths with Exclusion Regexes
@@ -151,19 +151,19 @@ jobs:
     strategy:
       matrix:
         path:
-          - check: 'src'
-            exclude: '(hello|world)' # Exclude file paths containing "hello" or "world"
-          - check: 'examples'
-            exclude: ''              # Nothing to exclude
+          - check: "src"
+            exclude: "(hello|world)" # Exclude file paths containing "hello" or "world"
+          - check: "examples"
+            exclude: "" # Nothing to exclude
     steps:
-    - uses: actions/checkout@v4
-    - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
-      with:
-        clang-format-version: '13'
-        check-path: ${{ matrix.path['check'] }}
-        exclude-regex: ${{ matrix.path['exclude'] }}
-        fallback-style: 'Mozilla' # optional
+      - uses: actions/checkout@v4
+      - name: Run clang-format style check for C/C++/Protobuf programs.
+        uses: jidicula/clang-format-action@v4.15.0
+        with:
+          clang-format-version: "13"
+          check-path: ${{ matrix.path['check'] }}
+          exclude-regex: ${{ matrix.path['exclude'] }}
+          fallback-style: "Mozilla" # optional
 ```
 
 # Who uses this?
