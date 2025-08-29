@@ -31,6 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "21", ubuntu: "plucky"}
           - {version: "20", ubuntu: "plucky"}
           - {version: "19", ubuntu: "plucky"}
           - {version: "18", ubuntu: "noble"}
