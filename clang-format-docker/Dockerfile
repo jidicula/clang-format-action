@@ -4,7 +4,7 @@ FROM ubuntu:${UBUNTU_VERSION}
 ARG CLANG_FORMAT_VERSION
 
 
-RUN if [ "${CLANG_FORMAT_VERSION}" <= "19"]; then \
+RUN if [ "${CLANG_FORMAT_VERSION}" -le "19" ]; then \
         apt-get update \
     	&& apt-get install --no-install-recommends -y \
     	clang-format-${CLANG_FORMAT_VERSION} \
