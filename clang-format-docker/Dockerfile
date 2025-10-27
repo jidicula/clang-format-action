@@ -14,6 +14,7 @@ RUN if [ "${CLANG_FORMAT_VERSION}" -le "19" ]; then \
     	&& mv /usr/bin/clang-format-${CLANG_FORMAT_VERSION} /usr/bin/clang-format; \
     else \
         apt-get update \
+        && apt-get install --no-install-recommends -y wget \
         && wget https://apt.llvm.org/llvm.sh \
         && chmod +x llvm.sh \
         && ./llvm.sh ${CLANG_FORMAT_VERSION} all \
