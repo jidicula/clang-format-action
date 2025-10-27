@@ -16,7 +16,7 @@ RUN if [ "${CLANG_FORMAT_VERSION}" <= "19"]; then \
         apt-get update \
         && wget https://apt.llvm.org/llvm.sh \
         && chmod +x llvm.sh \
-        && sudo ./llvm.sh ${CLANG_FORMAT_VERSION}} all \
+        && ./llvm.sh ${CLANG_FORMAT_VERSION} all \
         && rm llvm.sh \
         # Clean cache
         && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
