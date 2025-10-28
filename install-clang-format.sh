@@ -1,5 +1,5 @@
-# install-clang-format.sh
 #!/bin/bash
+# install-clang-format.sh
 set -euo pipefail
 
 VERSION="${1:-}"
