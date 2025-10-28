@@ -3,8 +3,7 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 ARG CLANG_FORMAT_VERSION
 
-
-RUN if [ "${CLANG_FORMAT_VERSION}" -le "19" ]; then \
+RUN if [ ${CLANG_FORMAT_VERSION} -le 19 ] 2>/dev/null; then \
         apt-get update \
     	&& apt-get install --no-install-recommends -y \
     	clang-format-${CLANG_FORMAT_VERSION} \
@@ -14,9 +13,9 @@ RUN if [ "${CLANG_FORMAT_VERSION}" -le "19" ]; then \
     	&& mv /usr/bin/clang-format-${CLANG_FORMAT_VERSION} /usr/bin/clang-format; \
     else \
         apt-get update \
-        && apt-get install --no-install-recommends -y wget \
-        && wget https://apt.llvm.org/llvm.sh \
-        && chmod +x llvm.sh \
+        && apt-get install --no-install-recommends -y ca-certificates lsb-release software-properties-common gnupg wget \
+        && wget -O llvm.sh https://apt.llvm.org/llvm.sh \
+        && [ -f llvm.sh ] && chmod +x llvm.sh \
         && ./llvm.sh ${CLANG_FORMAT_VERSION} \
         && rm llvm.sh \
         # The script will add the LLVM repository and its GPG key, so we can now install clang-format
