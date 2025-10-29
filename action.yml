@@ -9,7 +9,7 @@ inputs:
   clang-format-version:
     description: 'The major version of clang-format that you want to use.'
     required: false
-    default: '13'
+    default: '21'
   check-path:
     description: 'The path to the directory you want to check for correct C/C++/Protobuf formatting. Default is the full repository.'
     required: false
