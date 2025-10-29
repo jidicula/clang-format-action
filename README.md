@@ -29,11 +29,12 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 18: `clang-format-18`
 * 19: `clang-format-19`
 * 20: `clang-format-20`
+* 21: `clang-format-20`
 
 ## Action version upgrade guarantee
 
 > [!IMPORTANT]
-> This action complies with the [Semantic Versioning spec](https://semver.org) for how it's called from GitHub Actions workflows. This means that for version format `x.y.z`, minor and patch version increments `y++` and `z++` will not break existing functionality for how this action is called in your GitHub Actions workflows. Major version increments (`x++`) *will* include breaking changes in how this action is called. If you notice version changes that violate this guarantee, [open an issue](https://github.com/jidicula/clang-format-action/issues/new?template=Blank+issue) and let's work together to fix it 😁.
+> This action complies with the [Semantic Versioning spec](https://semver.org) for how it's called from GitHub Actions workflows. This means that for version format `x.y.z`, minor and patch version increments `y++` and `z++` will not break existing functionality for how this action is called in your GitHub Actions workflows. Major version increments (`x++`) *will* include breaking changes in how this action is called. If you notice version changes that violate this guarantee, [open an issue](https://github.com/jidicula/clang-format-action/issues/new?template=Blank+issue) and let's work together to fix it 🤝.
 
 > [!CAUTION]
 > I provide no guarantees for formatting breakages *within* `clang-format` versions. This action only supports major versions of `clang-format` and doesn't support granular specification of `clang-format` minor or patch versions. It's possible that a formatting check workflow using this action and a pinned version of `clang-format` could break in a subsequent run if the underlying `clang-format` Ubuntu package has introduced a breaking minor or patch version change. I'm not sure how often this happens - vote in [this poll](https://github.com/jidicula/clang-format-action/discussions/192) and optionally leave a comment so I can understand this problem more.
@@ -44,7 +45,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The major version of `clang-format` that you want to run on your codebase.
-  * Default: `13`
+  * Default: `21`
   * Available versions: see [Versions supported](#major-versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
