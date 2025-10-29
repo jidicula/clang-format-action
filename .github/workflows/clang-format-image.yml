@@ -31,10 +31,11 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "20", ubuntu: "plucky"}
-          - {version: "19", ubuntu: "plucky"}
-          - {version: "18", ubuntu: "noble"}
-          - {version: "17", ubuntu: "noble"}
+          - {version: "21", ubuntu: "questing"}
+          - {version: "20", ubuntu: "questing"}
+          - {version: "19", ubuntu: "questing"}
+          - {version: "18", ubuntu: "questing"}
+          - {version: "17", ubuntu: "questing"}
           - {version: "16", ubuntu: "noble"}
           - {version: "15", ubuntu: "noble"}
           - {version: "14", ubuntu: "noble"}
