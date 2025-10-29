@@ -2,7 +2,7 @@
 
 [![ubuntu-24.04 Tests](https://github.com/jidicula/clang-format-action/actions/workflows/test-ubuntu-24.04.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/test-ubuntu-24.04.yml)
 
-[![shell-lint](https://github.com/jidicula/clang-format-action/workflows/shell-lint/badge.svg?branch=main)](https://github.com/jidicula/clang-format-action/actions?query=workflow%3Ashell-lint+branch%3Amain)
+[![shell-lint](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml/badge.svg)](https://github.com/jidicula/clang-format-action/actions/workflows/shell-lint.yml)
 
 
 # clang-format-action
@@ -107,7 +107,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
+      uses: jidicula/clang-format-action@v4.16.0
       with:
         clang-format-version: '13'
         check-path: 'src'
@@ -132,7 +132,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
+      uses: jidicula/clang-format-action@v4.16.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path }}
@@ -159,7 +159,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.15.0
+      uses: jidicula/clang-format-action@v4.16.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}
