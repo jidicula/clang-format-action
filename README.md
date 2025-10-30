@@ -29,7 +29,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 18: `clang-format-18`
 * 19: `clang-format-19`
 * 20: `clang-format-20`
-* 21: `clang-format-20`
+* 21: `clang-format-21`
 
 ## Action version upgrade guarantee
 
