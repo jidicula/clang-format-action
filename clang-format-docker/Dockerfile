@@ -3,7 +3,11 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 ARG CLANG_FORMAT_VERSION
 
-RUN apt-get update \
+RUN [ "$CLANG_FORMAT_VERSION" == "local" ] \
+	&& mv "$(which clang-format)" /usr/bin/clang-format
+
+RUN [ "$CLANG_FORMAT_VERSION" != "local" ] \
+	&& apt-get update \
 	&& apt-get install --no-install-recommends -y \
 	clang-format-${CLANG_FORMAT_VERSION} \
 	# Clean cache

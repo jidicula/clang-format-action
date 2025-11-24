@@ -7,7 +7,7 @@ branding:
 
 inputs:
   clang-format-version:
-    description: 'The major version of clang-format that you want to use.'
+    description: 'The major version of clang-format that you want to use, or "local" to skip installing and use one already in $PATH.'
     required: false
     default: '21'
   check-path:

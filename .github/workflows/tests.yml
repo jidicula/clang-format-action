@@ -41,8 +41,13 @@ jobs:
           - 19
           - 20
           - 21
+          - local
     steps:
     - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6
+      if: matrix.clang-format-version == 'local'
+    - run: pip install clang-format==21.1.6
+      if: matrix.clang-format-version == 'local'
     - name: Build and test the Docker image
       run: test/test.sh ${{ matrix.clang-format-version }}
   e2e:
@@ -71,6 +76,7 @@ jobs:
           - 19
           - 20
           - 21
+          - local
         path:
           - check: 'test/known_fail'
             exclude: 'capital'
@@ -83,6 +89,10 @@ jobs:
             known_fail: false
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        if: matrix.clang-format-version == 'local'
+      - run: pip install clang-format==21.1.6
+        if: matrix.clang-format-version == 'local'
       - name: Run clang-format style check for C/C++ programs.
         id: check
         uses: ./../clang-format-action

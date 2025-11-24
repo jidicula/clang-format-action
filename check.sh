@@ -20,6 +20,11 @@
 format_diff() {
 	local filepath="$1"
 	# Invoke clang-format with dry run and formatting error output
+	if [[ $CLANG_FORMAT_MAJOR_VERSION == 'local' ]]; then
+		local CLANG_FORMAT_MAJOR_VERSION=$(
+			clang-format --version | cut -d' ' -f3 | cut -d'.' -f1
+		)
+	fi
 	if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
 		local_format="$(docker run \
 			--volume "$(pwd)":"$(pwd)" \
