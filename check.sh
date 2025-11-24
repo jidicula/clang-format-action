@@ -24,7 +24,7 @@ format_diff() {
 		local_format="$(docker run \
 			--volume "$(pwd)":"$(pwd)" \
 			--workdir "$(pwd)" \
-			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
+			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" \
 			--dry-run \
 			--Werror \
 			--style=file \
@@ -34,7 +34,7 @@ format_diff() {
 		formatted="$(docker run \
 			--volume "$(pwd)":"$(pwd)" \
 			--workdir "$(pwd)" \
-			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
+			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" \
 			--style=file \
 			--fallback-style="$FALLBACK_STYLE" \
 			"${filepath}")"
@@ -55,7 +55,8 @@ format_diff() {
 	return 0
 }
 
-CLANG_FORMAT_MAJOR_VERSION="$1"
+CLANG_FORMAT_VERSION="$1"
+CLANG_FORMAT_MAJOR_VERSION=$(echo "$CLANG_FORMAT_VERSION" | cut -d. -f1)
 CHECK_PATH="$2"
 FALLBACK_STYLE="$3"
 EXCLUDE_REGEX="$4"
@@ -91,7 +92,7 @@ exit_code=0
 docker run \
 	--volume "$(pwd)":"$(pwd)" \
 	--workdir "$(pwd)" \
-	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --version
+	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_VERSION" --version
 
 # All files improperly formatted will be printed to the output.
 src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
