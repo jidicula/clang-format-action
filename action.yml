@@ -7,7 +7,7 @@ branding:
 
 inputs:
   clang-format-version:
-    description: 'The major version of clang-format that you want to use.'
+    description: 'The version of clang-format that you want to use. Use either major version, or exact one.'
     required: false
     default: '21'
   check-path:
