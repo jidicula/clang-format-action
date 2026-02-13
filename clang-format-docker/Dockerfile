@@ -1,3 +1,5 @@
+LABEL org.opencontainers.image.description clang-format image
+
 ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}
 
