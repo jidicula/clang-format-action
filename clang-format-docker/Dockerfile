@@ -3,8 +3,6 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 ARG CLANG_FORMAT_VERSION
 
-LABEL org.opencontainers.image.description clang-format image
-
 RUN apt-get update \
 	&& apt-get install --no-install-recommends -y \
 	clang-format-${CLANG_FORMAT_VERSION} \
