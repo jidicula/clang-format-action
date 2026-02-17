@@ -31,9 +31,11 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "19", ubuntu: "oracular"}
-          - {version: "18", ubuntu: "noble"}
-          - {version: "17", ubuntu: "noble"}
+          - {version: "21", ubuntu: "questing"}
+          - {version: "20", ubuntu: "questing"}
+          - {version: "19", ubuntu: "questing"}
+          - {version: "18", ubuntu: "questing"}
+          - {version: "17", ubuntu: "questing"}
           - {version: "16", ubuntu: "noble"}
           - {version: "15", ubuntu: "noble"}
           - {version: "14", ubuntu: "noble"}
@@ -49,25 +51,25 @@ jobs:
           - {version: "4.0", ubuntu: "bionic"}
           - {version: "3.9", ubuntu: "bionic"}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Parse version tags
         run: |
           VERSION="${{ matrix.version-pair.version }}"
           MAJOR_VERSION="${VERSION%%.*}"
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
       - name: Log in to the Container registry
-        uses: docker/login-action@v3.3.0
+        uses: docker/login-action@v3.7.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5.6.1
+        uses: docker/metadata-action@v5.10.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6.10.0
+        uses: docker/build-push-action@v6.18.0
         with:
           context: .
           file: "clang-format-docker/Dockerfile"
@@ -82,7 +84,7 @@ jobs:
     name: Clean untagged images
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: '^1.22'
           check-latest: true
