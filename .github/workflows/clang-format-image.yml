@@ -68,6 +68,11 @@ jobs:
         uses: docker/metadata-action@v5.10.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            maintainer=jidicula
+            org.opencontainers.image.title="clang-format"
+            org.opencontainers.image.description="clang-format, packaged in a Dockerfile"
+            org.opencontainers.image.licenses=MIT
       - name: Build and push Docker image
         uses: docker/build-push-action@v6.18.0
         with:
