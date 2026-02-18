@@ -74,7 +74,7 @@ jobs:
             org.opencontainers.image.description="clang-format, packaged in a Dockerfile"
             org.opencontainers.image.licenses=MIT
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6.18.0
+        uses: docker/build-push-action@v6.19.2
         with:
           context: .
           file: "clang-format-docker/Dockerfile"
