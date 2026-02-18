@@ -79,6 +79,7 @@ jobs:
           context: .
           file: "clang-format-docker/Dockerfile"
           push: true
+          provenance: false
           tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
