@@ -30,6 +30,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 19: `clang-format-19`
 * 20: `clang-format-20`
 * 21: `clang-format-21`
+* 22: `clang-format-22`
 
 ## Action version upgrade guarantee
 
@@ -45,7 +46,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The major version of `clang-format` that you want to run on your codebase.
-  * Default: `21`
+  * Default: `22`
   * Available versions: see [Versions supported](#major-versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
