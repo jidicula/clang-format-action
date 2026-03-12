@@ -31,6 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
+          - {version: "22", ubuntu: "resolute"}
           - {version: "21", ubuntu: "questing"}
           - {version: "20", ubuntu: "questing"}
           - {version: "19", ubuntu: "questing"}
