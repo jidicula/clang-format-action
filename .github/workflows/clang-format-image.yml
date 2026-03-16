@@ -31,8 +31,12 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "18", ubuntu: "noble"}
-          - {version: "17", ubuntu: "noble"}
+          - {version: "22", ubuntu: "resolute"}
+          - {version: "21", ubuntu: "questing"}
+          - {version: "20", ubuntu: "questing"}
+          - {version: "19", ubuntu: "questing"}
+          - {version: "18", ubuntu: "questing"}
+          - {version: "17", ubuntu: "questing"}
           - {version: "16", ubuntu: "noble"}
           - {version: "15", ubuntu: "noble"}
           - {version: "14", ubuntu: "noble"}
@@ -48,29 +52,35 @@ jobs:
           - {version: "4.0", ubuntu: "bionic"}
           - {version: "3.9", ubuntu: "bionic"}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Parse version tags
         run: |
           VERSION="${{ matrix.version-pair.version }}"
           MAJOR_VERSION="${VERSION%%.*}"
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
       - name: Log in to the Container registry
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v4.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5.5.1
+        uses: docker/metadata-action@v6.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            maintainer=jidicula
+            org.opencontainers.image.title="clang-format"
+            org.opencontainers.image.description="clang-format, packaged in a Dockerfile"
+            org.opencontainers.image.licenses=MIT
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.3.0
+        uses: docker/build-push-action@v7.0.0
         with:
           context: .
           file: "clang-format-docker/Dockerfile"
           push: true
+          provenance: false
           tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
@@ -81,7 +91,7 @@ jobs:
     name: Clean untagged images
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version: '^1.22'
           check-latest: true

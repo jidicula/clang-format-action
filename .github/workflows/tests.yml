@@ -38,8 +38,12 @@ jobs:
           - 16
           - 17
           - 18
+          - 19
+          - 20
+          - 21
+          - 22
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Build and test the Docker image
       run: test/test.sh ${{ matrix.clang-format-version }}
   e2e:
@@ -65,6 +69,10 @@ jobs:
           - 16
           - 17
           - 18
+          - 19
+          - 20
+          - 21
+          - 22
         path:
           - check: 'test/known_fail'
             exclude: 'capital'
@@ -76,7 +84,7 @@ jobs:
             exclude: 'capital'
             known_fail: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run clang-format style check for C/C++ programs.
         id: check
         uses: ./../clang-format-action
