@@ -3,57 +3,17 @@
 ###############################################################################
 #                                check.sh                                     #
 ###############################################################################
-# USAGE: ./entrypoint.sh [<path>] [<fallback style>]
+# USAGE: ./check.sh [<clang-format version>] [<path>] [<fallback style>]
+#                    [<exclude regex>] [<include regex>]
 #
 # Checks all C/C++/Protobuf/CUDA files (.h, .H, .hpp, .hh, .h++, .hxx and .c,
 # .C, .cpp, .cc, .c++, .cxx, .proto, .cu) in the provided GitHub repository path
-# (arg1) for conforming to clang-format. If no path is provided or provided path
+# (arg2) for conforming to clang-format. If no path is provided or provided path
 # is not a directory, all C/C++/Protobuf/CUDA files are checked. If any files
 # are incorrectly formatted, the script lists them and exits with 1.
 #
 # Define your own formatting rules in a .clang-format file at your repository
-# root. Otherwise, the provided style guide (arg2) is used as a fallback.
-
-# format_diff function
-# Accepts a filepath argument. The filepath passed to this function must point
-# to a C/C++/Protobuf/CUDA file.
-format_diff() {
-	local filepath="$1"
-	# Invoke clang-format with dry run and formatting error output
-	if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
-		local_format="$(docker run \
-			--volume "$(pwd)":"$(pwd)" \
-			--workdir "$(pwd)" \
-			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
-			--dry-run \
-			--Werror \
-			--style=file \
-			--fallback-style="$FALLBACK_STYLE" \
-			"${filepath}")"
-	else # Versions below 9 don't have dry run
-		formatted="$(docker run \
-			--volume "$(pwd)":"$(pwd)" \
-			--workdir "$(pwd)" \
-			ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" \
-			--style=file \
-			--fallback-style="$FALLBACK_STYLE" \
-			"${filepath}")"
-		local_format="$(diff -q <(cat "${filepath}") <(echo "${formatted}"))"
-	fi
-
-	local format_status="$?"
-	if [[ ${format_status} -ne 0 ]]; then
-		# Append Markdown-bulleted monospaced filepath of failing file to
-		# summary file.
-		echo "* \`$filepath\`" >>failing-files.txt
-
-		echo "Failed on file: $filepath" >&2
-		echo "$local_format" >&2
-		exit_code=1 # flip the global exit code
-		return "${format_status}"
-	fi
-	return 0
-}
+# root. Otherwise, the provided style guide (arg3) is used as a fallback.
 
 CLANG_FORMAT_MAJOR_VERSION="$1"
 CHECK_PATH="$2"
@@ -87,24 +47,82 @@ fi
 # initialize exit code
 exit_code=0
 
+DOCKER_IMAGE="ghcr.io/jidicula/clang-format:${CLANG_FORMAT_MAJOR_VERSION}"
+
 # output clang-format version
 docker run \
 	--volume "$(pwd)":"$(pwd)" \
 	--workdir "$(pwd)" \
-	ghcr.io/jidicula/clang-format:"$CLANG_FORMAT_MAJOR_VERSION" --version
+	"$DOCKER_IMAGE" --version
 
 # All files improperly formatted will be printed to the output.
 src_files=$(find "$CHECK_PATH" -name .git -prune -o -regextype posix-egrep -regex "$INCLUDE_REGEX" -print)
 
-# check formatting in each source file
-IFS=$'\n' # Loop below should separate on new lines, not spaces.
+# Build array of files to check, applying the exclude regex.
+files_to_check=()
+IFS=$'\n'
 for file in $src_files; do
-	# Only check formatting if the path doesn't match the regex
 	if ! [[ ${file} =~ $EXCLUDE_REGEX ]]; then
-		format_diff "${file}"
+		files_to_check+=("$file")
 	fi
 done
+unset IFS
 
-# global exit code is flipped to nonzero if any invocation of `format_diff` has
-# a formatting difference.
+if [[ ${#files_to_check[@]} -eq 0 ]]; then
+	echo "No source files to check."
+	exit 0
+fi
+
+# Run clang-format on all files in a single Docker invocation instead of
+# spawning a container per file (see issue #147).
+if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
+	# clang-format >= 10 supports --dry-run --Werror, which outputs
+	# diagnostics for incorrectly formatted files and exits non-zero.
+	format_output="$(docker run \
+		--volume "$(pwd)":"$(pwd)" \
+		--workdir "$(pwd)" \
+		"$DOCKER_IMAGE" \
+		--dry-run \
+		--Werror \
+		--style=file \
+		--fallback-style="$FALLBACK_STYLE" \
+		"${files_to_check[@]}" 2>&1)"
+	format_status="$?"
+
+	if [[ ${format_status} -ne 0 ]]; then
+		exit_code=1
+		# Extract unique failing file paths from diagnostics.
+		# Output lines look like: ./path/file.c:10:5: error: ...
+		while IFS= read -r failing_file; do
+			echo "* \`$failing_file\`" >>failing-files.txt
+			echo "Failed on file: $failing_file" >&2
+		done < <(echo "$format_output" | sed -n 's/\(.*\):[0-9][0-9]*:[0-9][0-9]*:.*$/\1/p' | sort -u)
+		echo "$format_output" >&2
+	fi
+else
+	# Versions below 10 don't have --dry-run; mount a helper script into
+	# the container that formats each file and compares it to the original.
+	SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+	format_output="$(docker run \
+		--volume "$(pwd)":"$(pwd)" \
+		--volume "$SCRIPT_DIR/format-diff-old.sh":/format-diff-old.sh:ro \
+		--workdir "$(pwd)" \
+		--entrypoint /bin/bash \
+		"$DOCKER_IMAGE" \
+		/format-diff-old.sh "$FALLBACK_STYLE" "${files_to_check[@]}" 2>&1)"
+	format_status="$?"
+
+	if [[ ${format_status} -ne 0 ]]; then
+		exit_code=1
+		while IFS= read -r line; do
+			if [[ "$line" == FAILED:* ]]; then
+				file="${line#FAILED:}"
+				echo "* \`$file\`" >>failing-files.txt
+				echo "Failed on file: $file" >&2
+			fi
+		done <<< "$format_output"
+	fi
+fi
+
+# Global exit code is nonzero if any files are incorrectly formatted.
 exit "$exit_code"
