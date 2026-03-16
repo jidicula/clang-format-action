@@ -73,8 +73,7 @@ if [[ ${#files_to_check[@]} -eq 0 ]]; then
 	exit 0
 fi
 
-# Run clang-format on all files in a single Docker invocation instead of
-# spawning a container per file (see issue #147).
+# Run clang-format on all files in a single Docker invocation.
 if [[ $CLANG_FORMAT_MAJOR_VERSION -gt "9" ]]; then
 	# clang-format >= 10 supports --dry-run --Werror, which outputs
 	# diagnostics for incorrectly formatted files and exits non-zero.
