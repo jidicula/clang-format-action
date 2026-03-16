@@ -108,7 +108,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.17.0
+      uses: jidicula/clang-format-action@v4.18.0
       with:
         clang-format-version: '13'
         check-path: 'src'
@@ -133,7 +133,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.17.0
+      uses: jidicula/clang-format-action@v4.18.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path }}
@@ -160,7 +160,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.17.0
+      uses: jidicula/clang-format-action@v4.18.0
       with:
         clang-format-version: '13'
         check-path: ${{ matrix.path['check'] }}
