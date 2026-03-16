@@ -120,7 +120,7 @@ else
 				echo "* \`$file\`" >>failing-files.txt
 				echo "Failed on file: $file" >&2
 			fi
-		done <<< "$format_output"
+		done <<<"$format_output"
 	fi
 fi
 

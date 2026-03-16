@@ -11,11 +11,12 @@
 # USAGE: ./format-diff-old.sh <fallback-style> <file1> [<file2> ...]
 
 exit_code=0
-fallback="$1"; shift
+fallback="$1"
+shift
 
 for file in "$@"; do
 	formatted="$(clang-format --style=file --fallback-style="$fallback" "$file")"
-	if ! diff -q "$file" <(printf '%s\n' "$formatted") > /dev/null 2>&1; then
+	if ! diff -q "$file" <(printf '%s\n' "$formatted") >/dev/null 2>&1; then
 		echo "FAILED:$file" >&2
 		exit_code=1
 	fi
