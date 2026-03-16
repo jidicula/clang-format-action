@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-#                           format-diff-old.sh                                #
+#                           format-diff.sh                                #
 ###############################################################################
 # Helper for clang-format versions below 10 that lack --dry-run.
 # Runs inside a Docker container. Formats each file and compares the output
 # to the original. Prints FAILED:<filepath> to stderr for any file that
 # differs from the clang-format output.
 #
-# USAGE: ./format-diff-old.sh <fallback-style> <file1> [<file2> ...]
+# USAGE: ./format-diff.sh <fallback-style> <file1> [<file2> ...]
 
 exit_code=0
 fallback="$1"

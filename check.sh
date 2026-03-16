@@ -105,11 +105,11 @@ else
 	SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 	format_output="$(docker run \
 		--volume "$(pwd)":"$(pwd)" \
-		--volume "$SCRIPT_DIR/format-diff-old.sh":/format-diff-old.sh:ro \
+		--volume "$SCRIPT_DIR/format-diff.sh":/format-diff.sh:ro \
 		--workdir "$(pwd)" \
 		--entrypoint /bin/bash \
 		"$DOCKER_IMAGE" \
-		/format-diff-old.sh "$FALLBACK_STYLE" "${files_to_check[@]}" 2>&1)"
+		/format-diff.sh "$FALLBACK_STYLE" "${files_to_check[@]}" 2>&1)"
 	format_status="$?"
 
 	if [[ ${format_status} -ne 0 ]]; then
