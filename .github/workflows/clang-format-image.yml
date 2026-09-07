@@ -84,9 +84,9 @@ jobs:
     name: Clean untagged images
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
-          go-version: "^1.22"
+          go-version: "^1.27"
           check-latest: true
       - name: Install ghcr-cleaner
         run: go install github.com/jidicula/ghcr-cleaner@latest

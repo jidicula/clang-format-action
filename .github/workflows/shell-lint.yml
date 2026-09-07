@@ -25,9 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
-          go-version: "1.23"
+          go-version: "1.27"
           check-latest: true
       - name: Install shfmt
         run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
