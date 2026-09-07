@@ -41,7 +41,7 @@ jobs:
           - 19
           - 20
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
         with:
@@ -93,7 +93,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Run clang-format style check for C/C++ programs.
         id: check
         uses: ./../clang-format-action

@@ -51,7 +51,7 @@ jobs:
           - { version: "4.0", ubuntu: "bionic" }
           - { version: "3.9", ubuntu: "bionic" }
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Parse version tags
         run: |
           VERSION="${{ matrix.version-pair.version }}"
