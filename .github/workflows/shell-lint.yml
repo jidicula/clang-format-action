@@ -23,7 +23,7 @@ jobs:
         check-latest: true
 
     - name: Install shfmt
-      run: go install mvdan.cc/sh/v3/cmd/shfmt@latest
+      run: go install mvdan.cc/sh/v3/cmd/shfmt@v${SHFMT_VERSION}
 
     - name: Check .sh files
       run: shfmt -d .
