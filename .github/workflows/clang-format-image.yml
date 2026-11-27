@@ -16,6 +16,11 @@ on:
       - 'format-diff.sh'
       - 'test/**'
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Push images after testing'
+        type: boolean
+        default: true
   schedule:
     - cron: '5 4 * * *' # Daily at 04:05
 
@@ -116,18 +121,18 @@ jobs:
           check-path: 'test/known_pass'
           exclude-regex: 'capital'
       - name: Log in to the Container registry
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish == true)
         uses: docker/login-action@v4.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push Docker image
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish == true)
         run: docker push "$REGISTRY/jidicula/$IMAGE_NAME:$MAJOR_VERSION"
   clean-untagged-images:
     needs: publish-image
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish == true)
     name: Clean untagged images
     runs-on: ubuntu-latest
     steps:
