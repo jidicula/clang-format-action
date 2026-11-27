@@ -42,6 +42,8 @@ jobs:
           - 20
           - 21
           - 22
+          - 23
+          - 24
     steps:
     - uses: actions/checkout@v7
     - name: Build and test the Docker image
@@ -73,6 +75,8 @@ jobs:
           - 20
           - 21
           - 22
+          - 23
+          - 24
         path:
           - check: 'test/known_fail'
             exclude: 'capital'
@@ -93,6 +97,10 @@ jobs:
           check-path: ${{ matrix.path['check'] }}
           clang-format-version: ${{ matrix.clang-format-version }}
           exclude-regex: ${{ matrix.path['exclude'] }}
-      - name: Incorrect success on known-fail test
-        if: ${{ steps.check.outcome == 'success' && matrix.path['known_fail'] }}
-        run: exit 1
+      - name: Verify the known-fail test
+        if: ${{ matrix.path['known_fail'] }}
+        run: |
+          if [[ '${{ steps.check.outcome }}' != 'failure' ]] || [[ ! -s "$GITHUB_WORKSPACE/failing-files.txt" ]]; then
+            echo "Expected formatting violations to be reported." >&2
+            exit 1
+          fi

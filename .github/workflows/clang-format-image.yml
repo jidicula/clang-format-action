@@ -121,6 +121,22 @@ jobs:
           clang-format-version: ${{ env.MAJOR_VERSION }}
           check-path: 'test/known_pass'
           exclude-regex: 'capital'
+      - name: Record default action start
+        if: env.MAJOR_VERSION == '24'
+        run: echo "DEFAULT_ACTION_START=$(date +%s.%N)" >> "$GITHUB_ENV"
+      - name: Test default action
+        if: env.MAJOR_VERSION == '24'
+        uses: ./
+        with:
+          check-path: 'test/known_pass'
+          exclude-regex: 'capital'
+      - name: Verify default action image
+        if: env.MAJOR_VERSION == '24'
+        run: |
+          docker events --since "$DEFAULT_ACTION_START" --until "$(date +%s.%N)" \
+            --filter type=container --filter event=start \
+            --format '{{.Actor.Attributes.image}}' |
+            grep -Fx "$REGISTRY/jidicula/$IMAGE_NAME:24"
       - name: Log in to the Container registry
         if: github.event_name != 'pull_request' && (github.event_name != 'workflow_dispatch' || inputs.publish == true)
         uses: docker/login-action@v4.8.0

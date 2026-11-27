@@ -50,7 +50,7 @@ You can sponsor me [here](https://github.com/sponsors/jidicula)!
 
 ## Inputs
 * `clang-format-version` [optional]: The major version of `clang-format` that you want to run on your codebase.
-  * Default: `22`
+  * Default: `24`
   * Available versions: see [Versions supported](#major-versions-supported)
 * `check-path` [optional]: The path to the directory in the repo that should be checked for C/C++/Protobuf formatting.
   * Default: `.`
