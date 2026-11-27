@@ -34,7 +34,7 @@ You can define your own formatting rules in a `.clang-format` file at your repos
 * 23: `clang-format-23`
 * 24: `clang-format-24` (Debian experimental development snapshot)
 
-Versions 12 and 20 use archived Debian packages that no longer receive updates.
+Versions 11, 12, and 20 use archived Debian packages that no longer receive updates.
 
 ## Action version upgrade guarantee
 

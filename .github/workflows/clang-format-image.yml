@@ -57,7 +57,6 @@ jobs:
           - version: "20"
             image: "debian:sid"
             apt_source: "deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20251110T000000Z/ experimental main"
-            apt_target: "experimental"
           - {version: "19", image: "debian:trixie"}
           - {version: "18", image: "debian:trixie"}
           - {version: "17", image: "debian:trixie"}
@@ -68,7 +67,9 @@ jobs:
           - version: "12"
             image: "debian:bookworm"
             apt_source: "deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20220601T000000Z/ sid main"
-          - {version: "11", image: "debian:bullseye"}
+          - version: "11"
+            image: "debian:bookworm"
+            apt_source: "deb [check-valid-until=no] http://archive.debian.org/debian bullseye main"
           - {version: "10", image: "ubuntu:focal"}
           - {version: "9", image: "ubuntu:focal"}
           - {version: "8", image: "ubuntu:focal"}
