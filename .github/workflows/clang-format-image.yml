@@ -7,6 +7,14 @@ on:
     paths:
       - 'clang-format-docker/**'
       - '.github/workflows/clang-format-image.yml'
+  pull_request:
+    paths:
+      - 'clang-format-docker/**'
+      - '.github/workflows/clang-format-image.yml'
+      - 'action.yml'
+      - 'check.sh'
+      - 'format-diff.sh'
+      - 'test/**'
   workflow_dispatch:
   schedule:
     - cron: '5 4 * * *' # Daily at 04:05
@@ -31,27 +39,39 @@ jobs:
       fail-fast: false
       matrix:
         version-pair:
-          - {version: "23", ubuntu: "resolute"}
-          - {version: "22", ubuntu: "resolute"}
-          - {version: "21", ubuntu: "questing"}
-          - {version: "20", ubuntu: "questing"}
-          - {version: "19", ubuntu: "questing"}
-          - {version: "18", ubuntu: "questing"}
-          - {version: "17", ubuntu: "questing"}
-          - {version: "16", ubuntu: "noble"}
-          - {version: "15", ubuntu: "noble"}
-          - {version: "14", ubuntu: "noble"}
-          - {version: "13", ubuntu: "jammy"}
-          - {version: "12", ubuntu: "jammy"}
-          - {version: "11", ubuntu: "jammy"}
-          - {version: "10", ubuntu: "focal"}
-          - {version: "9", ubuntu: "focal"}
-          - {version: "8", ubuntu: "focal"}
-          - {version: "7", ubuntu: "focal"}
-          - {version: "6.0", ubuntu: "focal"}
-          - {version: "5.0", ubuntu: "bionic"}
-          - {version: "4.0", ubuntu: "bionic"}
-          - {version: "3.9", ubuntu: "bionic"}
+          - version: "24"
+            image: "debian:sid"
+            apt_source: "deb http://deb.debian.org/debian experimental main"
+            apt_target: "experimental"
+          - {version: "23", image: "debian:forky"}
+          - {version: "22", image: "debian:trixie"}
+          - version: "21"
+            image: "debian:trixie"
+            apt_source: "deb http://deb.debian.org/debian trixie-backports main"
+            apt_target: "trixie-backports"
+          - version: "20"
+            image: "debian:sid"
+            apt_source: "deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20251110T000000Z/ experimental main"
+            apt_target: "experimental"
+          - {version: "19", image: "debian:trixie"}
+          - {version: "18", image: "debian:trixie"}
+          - {version: "17", image: "debian:trixie"}
+          - {version: "16", image: "debian:bookworm"}
+          - {version: "15", image: "debian:bookworm"}
+          - {version: "14", image: "debian:bookworm"}
+          - {version: "13", image: "debian:bookworm"}
+          - version: "12"
+            image: "debian:bookworm"
+            apt_source: "deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20220601T000000Z/ sid main"
+          - {version: "11", image: "debian:bullseye"}
+          - {version: "10", image: "ubuntu:focal"}
+          - {version: "9", image: "ubuntu:focal"}
+          - {version: "8", image: "ubuntu:focal"}
+          - {version: "7", image: "ubuntu:focal"}
+          - {version: "6.0", image: "ubuntu:focal"}
+          - {version: "5.0", image: "ubuntu:bionic"}
+          - {version: "4.0", image: "ubuntu:bionic"}
+          - {version: "3.9", image: "ubuntu:bionic"}
     steps:
       - uses: actions/checkout@v6
       - name: Parse version tags
@@ -59,12 +79,6 @@ jobs:
           VERSION="${{ matrix.version-pair.version }}"
           MAJOR_VERSION="${VERSION%%.*}"
           echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_ENV"
-      - name: Log in to the Container registry
-        uses: docker/login-action@v4.0.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v6.0.0
@@ -75,20 +89,45 @@ jobs:
             org.opencontainers.image.title="clang-format"
             org.opencontainers.image.description="clang-format, packaged in a Dockerfile"
             org.opencontainers.image.licenses=MIT
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v7.0.0
         with:
           context: .
           file: "clang-format-docker/Dockerfile"
-          push: true
+          load: true
           provenance: false
           tags: ${{ env.REGISTRY}}/jidicula/${{ env.IMAGE_NAME}}:${{ env.MAJOR_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            "UBUNTU_VERSION=${{ matrix.version-pair.ubuntu }}"
+            "BASE_IMAGE=${{ matrix.version-pair.image }}"
             "CLANG_FORMAT_VERSION=${{ matrix.version-pair.version }}"
+            "APT_SOURCE=${{ matrix.version-pair.apt_source }}"
+            "APT_TARGET=${{ matrix.version-pair.apt_target }}"
+      - name: Test Docker image
+        run: |
+          IMAGE="$REGISTRY/jidicula/$IMAGE_NAME:$MAJOR_VERSION"
+          docker image inspect "$IMAGE" > /dev/null
+          docker run --rm --pull never "$IMAGE" --version | grep -E "clang-format version $MAJOR_VERSION\."
+          test/test.sh "$MAJOR_VERSION"
+      - name: Test action
+        uses: ./
+        with:
+          clang-format-version: ${{ env.MAJOR_VERSION }}
+          check-path: 'test/known_pass'
+          exclude-regex: 'capital'
+      - name: Log in to the Container registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v4.0.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
+        run: docker push "$REGISTRY/jidicula/$IMAGE_NAME:$MAJOR_VERSION"
   clean-untagged-images:
     needs: publish-image
+    if: github.event_name != 'pull_request'
     name: Clean untagged images
     runs-on: ubuntu-latest
     steps:
